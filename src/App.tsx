@@ -1,4 +1,6 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, NavLink, Link } from 'react-router-dom'
+import { clsx } from 'clsx'
+import { FileDown, Github, Lightbulb, LightbulbOff, Search } from 'lucide-react';
 
 export function App() {
     return <div className='flex grow'>
@@ -10,12 +12,16 @@ export function App() {
 
             {/* nav section */}
             <nav className='flex flex-col items-center'>
-                <a href="">torrents</a>
+                <NavLink to='/' className={({ isActive }) => clsx('flex flex-col items-center space-y-2', isActive ? 'opacity-100' : 'opacity-60')}>
+                    <FileDown className='w-5 h-5' />
+                    <span className='text-xs uppercase font-medium'>Home</span>
+                </NavLink>
             </nav>
 
             {/* settings section */}
             <div className='flex flex-col items-center'>
-                <a href="">dark</a>
+                <Lightbulb className='w-5 h-5 hidden dark:inline' />
+                <LightbulbOff className='w-5 h-5 dark:hidden' />
             </div>
         </section>
 
@@ -23,14 +29,17 @@ export function App() {
             <header className='py-4 flex'>
                 {/* search */}
                 <div className='flex grow'>
-                    <div className='grow border-2 border-black'>
-                        <p>search torrents</p>
+                    <div className='grow flex items-center'>
+                        <Search className='w-6 h-6' />
+                        <input type="text" placeholder='Search torrents' className='grow bg-transparent outline-none' />
                     </div>
                 </div>
 
                 {/* helpful links */}
                 <div className='flex'>
-                    <a href="">github</a>
+                    <Link to='https://github.com/vsnthdev/transmission-control#readme'>
+                        <Github className='w-6 h-6' />
+                    </Link>
                 </div>
             </header>
 
