@@ -15,6 +15,9 @@
         "react-router-dom": "^6.20.0"
     },
     "devDependencies": {
+        "@ctrl/transmission": "^5.0.1",
+        "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+        "@types/luxon": "^3.3.5",
         "@types/react": "^18.2.39",
         "@types/react-dom": "^18.2.17",
         "@typescript-eslint/eslint-plugin": "^6.13.1",
@@ -25,7 +28,9 @@
         "eslint": "^8.54.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.4",
+        "filesize": "^10.1.0",
         "lucide-react": "^0.294.0",
+        "luxon": "^3.4.4",
         "postcss": "^8.4.31",
         "tailwindcss": "^3.3.5",
         "typescript": "^5.3.2",
