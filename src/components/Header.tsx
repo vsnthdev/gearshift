@@ -27,7 +27,7 @@ export const Header = {
     },
 
     Side() {
-        return <section className='hidden sm:flex flex-col justify-between px-4 py-6'>
+        return <section className='hidden sm:flex flex-col justify-between px-4 py-6 md:px-6'>
             {/* the logo */}
             <div className='flex flex-col items-center'>
                 <div className='w-10 aspect-square bg-slate-400 rounded-full' />
