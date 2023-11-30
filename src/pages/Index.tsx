@@ -19,7 +19,7 @@ export function Index() {
         }, 1000)
     }, [])
 
-    return <>
+    return <div className='flex flex-col space-y-4'>
         {torrents.map((torrent: any) => <TorrentCard key={torrent.id} torrent={torrent} />)}
-    </>
+    </div>
 }

@@ -1,9 +1,14 @@
-import { Github, Lightbulb, LightbulbOff, Search } from 'lucide-react'
+import { Github, Lightbulb, LightbulbOff, Menu, Search } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export const Header = {
     Top() {
         return <header className='py-8 px-2 flex'>
+            {/* mobile nav button */}
+            <div className='mr-6 sm:hidden'>
+                <Menu className='w-6 h-6' />
+            </div>
+
             {/* search */}
             <div className='flex grow'>
                 <div className='grow flex items-center space-x-2 group'>
@@ -22,7 +27,7 @@ export const Header = {
     },
 
     Side() {
-        return <section className='flex flex-col justify-between px-4 py-6'>
+        return <section className='hidden sm:flex flex-col justify-between px-4 py-6'>
             {/* the logo */}
             <div className='flex flex-col items-center'>
                 <div className='w-10 aspect-square bg-slate-400 rounded-full' />
