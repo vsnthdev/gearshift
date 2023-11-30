@@ -81,7 +81,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                         </div>}
 
                         {/* show paused status */}
-                        {torrent.state == 'paused' && <div className='hidden md:flex opacity-70 space-x-1 items-center'>
+                        {torrent.state == 'paused' && <div className='flex opacity-70 space-x-1 items-center'>
                             <span>Paused at {formatSize(torrent.totalDownloaded, true)} out of {formatSize(torrent.totalSelected, true)}</span>
                         </div>}
                     </div>
