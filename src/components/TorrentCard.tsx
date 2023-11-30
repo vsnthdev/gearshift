@@ -40,7 +40,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
         }
     }
 
-    const formatSize = (size: number) => `${filesize(size)}/s`
+    const formatSize = (size: number, hideRate?: boolean) => hideRate ? filesize(size) : `${filesize(size)}/s`
 
     return <div key={torrent.id} className='flex flex-col space-y-5 bg-white dark:bg-neutral-700 rounded-3xl p-5 sm:p-6 md:px-8 lg:space-y-0 lg:flex-row'>
         <div className='flex flex-col space-y-3 lg:grow'>
@@ -78,6 +78,11 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                         {torrent.state == 'downloading' && <div className='hidden md:flex opacity-70 space-x-1 items-center'>
                             <Bean className='w-3 h-3 sm:w-4 sm:h-4' />
                             <span>{torrent.connectedSeeds}/{torrent.totalSeeds}</span>
+                        </div>}
+
+                        {/* show paused status */}
+                        {torrent.state == 'paused' && <div className='hidden md:flex opacity-70 space-x-1 items-center'>
+                            <span>Paused at {formatSize(torrent.totalDownloaded, true)} out of {formatSize(torrent.totalSelected, true)}</span>
                         </div>}
                     </div>
 
