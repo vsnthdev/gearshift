@@ -1,6 +1,23 @@
+import { clsx } from 'clsx'
 import { DateTime } from 'luxon'
 import { filesize } from 'filesize'
-import { Clock, HardDriveDownload, HardDriveUpload, Pause, Play } from 'lucide-react'
+import { Bean, Clock, HardDriveDownload, HardDriveUpload, Info, Magnet, Pause, Play, Trash2 } from 'lucide-react'
+
+function ActionButton({ icon, name, onClick, variant }: { variant: 'secondary' | 'danger', icon: React.ReactNode, name: string, onClick: () => any }) {
+    return <button className={clsx(
+        // base styles
+        'flex items-center space-x-1 rounded-full text-sm mr-2 px-3 py-2 transition-colors lg:mr-0 lg:flex-col lg:justify-center lg:space-y-1 lg:w-20 lg:rounded-xl lg:space-x-0',
+
+        // variants
+        variant == 'secondary' && 'bg-black/5 hover:bg-black/10 dark:bg-black/10 dark:hover:bg-black/20',
+        variant == 'danger' && 'bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-500/20 dark:text-rose-200 dark:hover:bg-rose-500/30'
+    )} onClick={onClick}>
+        <div className='[&>svg]:w-4 [&>svg]:h-4 [&>svg]:aspect-square'>
+            {icon}
+        </div>
+        <span className='w-full'>{name}</span>
+    </button>
+}
 
 export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent: any, pauseTorrent: (id: string) => any, resumeTorrent: (id: string) => any }) {
     const formatEta = (seconds: number) => {
@@ -25,30 +42,42 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
 
     const formatSize = (size: number) => `${filesize(size)}/s`
 
-    return <div key={torrent.id} className='flex flex-col space-y-3 bg-white dark:bg-neutral-700 rounded-3xl p-5 sm:p-6 md:px-8 lg:space-y-0 lg:flex-row'>
+    return <div key={torrent.id} className='flex flex-col space-y-5 bg-white dark:bg-neutral-700 rounded-3xl p-5 sm:p-6 md:px-8 lg:space-y-0 lg:flex-row'>
         <div className='flex flex-col space-y-3 lg:grow'>
             <h3 className='line-clamp-3 sm:text-lg'>{torrent.name}</h3>
             <div className='flex flex-col space-y-3'>
                 {/* metrics */}
                 <div className='flex space-x-3 justify-between'>
                     {/* left metrics */}
-                    <div className='flex gap-2 items-center text-xs flex-wrap'>
+                    <div className='text-neutral-500 flex gap-2 items-center text-xs flex-wrap dark:text-neutral-300 md:gap-4 lg:gap-5'>
+                        {/* time remaining */}
+                        {torrent.eta != -1 && <div className='flex space-x-1 items-center'>
+                            <Clock className='w-3 h-3 sm:w-4 sm:h-4' />
+                            <span>{formatEta(torrent.eta)}</span>
+                        </div>}
+
                         {/* download speed */}
-                        {torrent.state == 'downloading' && <div className='flex space-x-1 items-center dark:text-neutral-200'>
+                        {torrent.state == 'downloading' && <div className='flex space-x-1 items-center'>
                             <HardDriveDownload className='w-3 h-3 sm:w-4 sm:h-4' />
                             <span>{formatSize(torrent.downloadSpeed)}</span>
                         </div>}
 
                         {/* upload speed */}
-                        <div className='flex space-x-1 items-center dark:text-neutral-200'>
+                        {['seeding', 'downloading'].includes(torrent.state) && <div className='flex space-x-1 items-center'>
                             <HardDriveUpload className='w-3 h-3 sm:w-4 sm:h-4' />
                             <span>{formatSize(torrent.uploadSpeed)}</span>
-                        </div>
+                        </div>}
 
-                        {/* time remaining */}
-                        {torrent.eta != -1 && <div className='flex space-x-1 items-center dark:text-neutral-200'>
-                            <Clock className='w-3 h-3 sm:w-4 sm:h-4' />
-                            <span>{formatEta(torrent.eta)}</span>
+                        {/* torrent peers */}
+                        {torrent.state == 'downloading' && <div className='hidden md:flex space-x-1 items-center'>
+                            <Magnet className='w-3 h-3 sm:w-4 sm:h-4' />
+                            <span>{torrent.connectedPeers}/{torrent.totalPeers}</span>
+                        </div>}
+
+                        {/* torrent seeds */}
+                        {torrent.state == 'downloading' && <div className='hidden md:flex opacity-70 space-x-1 items-center'>
+                            <Bean className='w-3 h-3 sm:w-4 sm:h-4' />
+                            <span>{torrent.connectedSeeds}/{torrent.totalSeeds}</span>
                         </div>}
                     </div>
 
@@ -66,18 +95,38 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
         </div>
 
         {/* torrent controls */}
-        <div className="flex lg:ml-6">
+        <div className="flex flex-row-reverse justify-end lg:flex-row lg:space-x-3 lg:ml-6">
+            {/* delete the torrent */}
+            {torrent.state != 'downloading' && <ActionButton
+                name='Delete'
+                variant='danger'
+                icon={<Trash2 />}
+                onClick={() => alert('delete torrent!')}
+            />}
+
+            {/* torrent info */}
+            <ActionButton
+                name='Info'
+                variant='secondary'
+                icon={<Info />}
+                onClick={() => alert('info on torrent!')}
+            />
+
             {/* start paused torrents */}
-            {torrent.state == 'paused' && <button className='flex items-center space-x-1 rounded-full text-sm px-3 py-1 transition-colors bg-black/5 hover:bg-black/10 dark:bg-black/10 hover:bg-black/20 lg:flex-col lg:justify-center lg:space-y-1 lg:w-20 lg:rounded-xl lg:space-x-0' onClick={() => resumeTorrent(torrent.id)}>
-                <Play className='w-4 h-4 aspect-square' />
-                <span className='w-full'>Start</span>
-            </button>}
+            {torrent.state == 'paused' && <ActionButton
+                name='Start'
+                icon={<Play />}
+                variant='secondary'
+                onClick={() => resumeTorrent(torrent.id)}
+            />}
 
             {/* paused downloading torrents */}
-            {torrent.state == 'downloading' && <button className='flex items-center space-x-1 rounded-full text-sm px-3 py-1 transition-colors bg-black/5 hover:bg-black/10 dark:bg-black/10 hover:bg-black/20 lg:flex-col lg:justify-center lg:space-y-1 lg:w-20 lg:rounded-xl lg:space-x-0' onClick={() => pauseTorrent(torrent.id)}>
-                <Pause className='w-4 h-4 aspect-square' />
-                <span className='w-full'>Pause</span>
-            </button>}
+            {torrent.state == 'downloading' && <ActionButton
+                name='Pause'
+                icon={<Pause />}
+                variant='secondary'
+                onClick={() => pauseTorrent(torrent.id)}
+            />}
         </div>
     </div>
 }
