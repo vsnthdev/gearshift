@@ -1,7 +1,7 @@
 import { clsx } from 'clsx'
 import { DateTime } from 'luxon'
 import { filesize } from 'filesize'
-import { Bean, Clock, HardDriveDownload, HardDriveUpload, Info, Magnet, Pause, Play, Trash2 } from 'lucide-react'
+import { Bean, Clock, HardDriveDownload, HardDriveUpload, Info, Magnet, Pause, Play, Square, Trash2 } from 'lucide-react'
 
 function ActionButton({ icon, name, onClick, variant }: { variant: 'secondary' | 'danger', icon: React.ReactNode, name: string, onClick: () => any }) {
     return <button className={clsx(
@@ -41,6 +41,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
     const formatSize = (size: number, hideRate?: boolean) => hideRate ? filesize(size) : `${filesize(size)}/s`
 
     return <div key={torrent.id} className='flex flex-col space-y-5 bg-white dark:bg-neutral-700 rounded-3xl p-5 sm:p-6 md:px-8 lg:space-y-0 lg:flex-row'>
+        {/* <pre>{JSON.stringify(torrent, null, 4)}</pre> */}
         <div className='flex flex-col space-y-3 lg:grow'>
             <h3 className='line-clamp-3 sm:text-lg'>{torrent.name}</h3>
             <div className='flex flex-col space-y-3'>
@@ -67,7 +68,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                         </div>}
 
                         {/* torrent peers */}
-                        {torrent.state == 'downloading' && <div className='hidden md:flex space-x-1 items-center'>
+                        {['downloading', 'seeding'].includes(torrent.state) && <div className='hidden md:flex space-x-1 items-center'>
                             <Magnet className='w-3 h-3 sm:w-4 sm:h-4' />
                             <span>{torrent.connectedPeers}/{torrent.totalPeers}</span>
                         </div>}
@@ -92,7 +93,15 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
 
                 {/* progress bar */}
                 <div className='h-1.5 bg-black/5 dark:bg-white/5 rounded-full'>
-                    <div className='h-full rounded-full bg-rose-400' style={{ width: `${Number(torrent.progress * 100).toFixed(2)}%` }} />
+                    <div className={clsx(
+                        // base styles
+                        'h-full rounded-full transition-all',
+
+                        // progress styles
+                        torrent.state == 'paused' && torrent.isCompleted && 'bg-blue-500',
+                        torrent.state == 'downloading' && torrent.isCompleted == false && 'bg-rose-500',
+                        torrent.state == 'seeding' && torrent.isCompleted && 'bg-emerald-400'
+                    )} style={{ width: `${Number(torrent.progress * 100).toFixed(2)}%` }} />
                 </div>
             </div>
         </div>
@@ -127,6 +136,14 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
             {torrent.state == 'downloading' && <ActionButton
                 name='Pause'
                 icon={<Pause />}
+                variant='secondary'
+                onClick={() => pauseTorrent(torrent.id)}
+            />}
+
+            {/* stop seeding torrents */}
+            {torrent.state == 'seeding' && <ActionButton
+                name='Stop'
+                icon={<Square />}
                 variant='secondary'
                 onClick={() => pauseTorrent(torrent.id)}
             />}
