@@ -85,13 +85,18 @@ export function Index() {
             </div>
         </div>
 
-        <div className='flex flex-col space-y-4 md:space-y-6'>
-            {torrents.map((torrent: any) => <TorrentCard
-                key={torrent.id}
-                torrent={torrent}
-                pauseTorrent={pauseTorrent}
-                resumeTorrent={resumeTorrent}
-            />)}
+        <div className='flex flex-col'>
+            <div className='mb-4 ml-2'>
+                <h2 className='uppercase text-sm font-bold tracking-widest text-neutral-400'>Recent torrents</h2>
+            </div>
+            <div className='flex flex-col space-y-4 md:space-y-6'>
+                {torrents.map((torrent: any) => <TorrentCard
+                    key={torrent.id}
+                    torrent={torrent}
+                    pauseTorrent={pauseTorrent}
+                    resumeTorrent={resumeTorrent}
+                />)}
+            </div>
         </div>
     </div>
 }
