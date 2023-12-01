@@ -26,8 +26,6 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
 
         const diff = eta.diff(now)
 
-        const duration = DateTime.fromObject({ second: diff.seconds }).toLocaleString({ second: 'numeric' })
-
         if (diff.as('days') > 1) {
             const days = Math.floor(diff.as('days'))
             return `${days} ${days == 1 ? 'day' : 'days'}`
@@ -36,7 +34,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
         } else if (diff.as('minutes') >= 1) {
             return `${Math.floor(diff.as('minutes'))} min`
         } else {
-            return duration
+            return `${Math.floor(diff.as('seconds'))} sec`
         }
     }
 
