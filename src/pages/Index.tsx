@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
-import { TorrentCard } from '../components'
-import { Transmission } from '@ctrl/transmission'
 import { filesize } from 'filesize'
+import { Transmission } from '@ctrl/transmission'
+import { useEffect, useMemo, useState } from 'react'
+import { TorrentCard, Dialog, useDialog } from '../components'
 import { DownloadCloud, File, HardDrive, UploadCloud } from 'lucide-react'
 
 const client = new Transmission({
@@ -11,9 +11,12 @@ const client = new Transmission({
 })
 
 export function Index() {
+    // HOOKS
     const [torrents, setTorrents] = useState<any>([])
     const [freeSpace, setFreeSpace] = useState<any>()
+    const torrentInfoDialog = useDialog()
 
+    // VALUES
     const totalDownloaded = useMemo(() => filesize(torrents.reduce((total: number, torrent: any) => total + torrent.totalDownloaded, 0)), [torrents])
     const totalUploaded = useMemo(() => filesize(torrents.reduce((total: number, torrent: any) => total + torrent.totalUploaded, 0)), [torrents])
 
@@ -39,7 +42,7 @@ export function Index() {
             {/* metrics card */}
             <div className='col-span-1 relative overflow-hidden md:aspect-square md:bg-violet-300 md:text-violet-900 rounded-2xl text-center flex flex-col space-y-2 justify-center items-center md:text-left'>
                 {/* background pattern */}
-                <svg className='hidden md:block absolute inset-0 z-0 h-full' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='80' height='28.5' patternTransform='scale(1) rotate(140)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)' /><path d='M-20.133 4.568C-13.178 4.932-6.452 7.376 0 10c6.452 2.624 13.036 5.072 20 5 6.967-.072 13.56-2.341 20-5 6.44-2.659 13.033-4.928 20-5 6.964-.072 13.548 2.376 20 5s13.178 5.068 20.133 5.432' stroke-width='5.5' stroke='hsla(0, 0%, 0%, 1)' fill='none' /></pattern></defs><rect width='800%' height='800%' transform='translate(0,-160)' fill='url(#a)' /></svg>
+                <svg className='hidden md:block absolute inset-0 z-0 h-full' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='80' height='28.5' patternTransform='scale(1) rotate(140)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)' /><path d='M-20.133 4.568C-13.178 4.932-6.452 7.376 0 10c6.452 2.624 13.036 5.072 20 5 6.967-.072 13.56-2.341 20-5 6.44-2.659 13.033-4.928 20-5 6.964-.072 13.548 2.376 20 5s13.178 5.068 20.133 5.432' strokeWidth='5.5' stroke='hsla(0, 0%, 0%, 1)' fill='none' /></pattern></defs><rect width='800%' height='800%' transform='translate(0,-160)' fill='url(#a)' /></svg>
                 <div className='hidden md:block absolute -top-10 left-0 right-0 bottom-0 w-full h-[150%] z-10 bg-gradient-to-tr from-violet-400 to-violet-400/80' />
 
                 <div className='flex justify-center items-center'>
@@ -54,7 +57,7 @@ export function Index() {
             </div>
             <div className='col-span-1 relative md:aspect-square md:bg-emerald-300 md:text-emerald-900 overflow-hidden rounded-2xl text-center flex flex-col space-y-2 justify-center items-center'>
                 {/* background pattern */}
-                <svg className='hidden md:block absolute inset-0 z-0 h-full' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='80' height='28.5' patternTransform='scale(1) rotate(140)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)' /><path d='M-20.133 4.568C-13.178 4.932-6.452 7.376 0 10c6.452 2.624 13.036 5.072 20 5 6.967-.072 13.56-2.341 20-5 6.44-2.659 13.033-4.928 20-5 6.964-.072 13.548 2.376 20 5s13.178 5.068 20.133 5.432' stroke-width='5.5' stroke='hsla(0, 0%, 0%, 1)' fill='none' /></pattern></defs><rect width='800%' height='800%' transform='translate(0,-160)' fill='url(#a)' /></svg>
+                <svg className='hidden md:block absolute inset-0 z-0 h-full' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='80' height='28.5' patternTransform='scale(1) rotate(140)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)' /><path d='M-20.133 4.568C-13.178 4.932-6.452 7.376 0 10c6.452 2.624 13.036 5.072 20 5 6.967-.072 13.56-2.341 20-5 6.44-2.659 13.033-4.928 20-5 6.964-.072 13.548 2.376 20 5s13.178 5.068 20.133 5.432' strokeWidth='5.5' stroke='hsla(0, 0%, 0%, 1)' fill='none' /></pattern></defs><rect width='800%' height='800%' transform='translate(0,-160)' fill='url(#a)' /></svg>
                 <div className='hidden md:block absolute -top-10 left-0 right-0 bottom-0 w-full h-[150%] z-10 bg-gradient-to-tr from-emerald-400 to-emerald-400/80' />
 
                 <div className='flex justify-center items-center'>
@@ -69,7 +72,7 @@ export function Index() {
             </div>
             {freeSpace && <div className='col-span-1 relative md:aspect-square md:bg-cyan-300 md:text-cyan-900 overflow-hidden rounded-2xl text-center flex flex-col space-y-2 justify-center items-center'>
                 {/* background pattern */}
-                <svg className='hidden md:block absolute inset-0 z-0 h-full' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='80' height='28.5' patternTransform='scale(1) rotate(140)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)' /><path d='M-20.133 4.568C-13.178 4.932-6.452 7.376 0 10c6.452 2.624 13.036 5.072 20 5 6.967-.072 13.56-2.341 20-5 6.44-2.659 13.033-4.928 20-5 6.964-.072 13.548 2.376 20 5s13.178 5.068 20.133 5.432' stroke-width='5.5' stroke='hsla(0, 0%, 0%, 1)' fill='none' /></pattern></defs><rect width='800%' height='800%' transform='translate(0,-160)' fill='url(#a)' /></svg>
+                <svg className='hidden md:block absolute inset-0 z-0 h-full' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='80' height='28.5' patternTransform='scale(1) rotate(140)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)' /><path d='M-20.133 4.568C-13.178 4.932-6.452 7.376 0 10c6.452 2.624 13.036 5.072 20 5 6.967-.072 13.56-2.341 20-5 6.44-2.659 13.033-4.928 20-5 6.964-.072 13.548 2.376 20 5s13.178 5.068 20.133 5.432' strokeWidth='5.5' stroke='hsla(0, 0%, 0%, 1)' fill='none' /></pattern></defs><rect width='800%' height='800%' transform='translate(0,-160)' fill='url(#a)' /></svg>
                 <div className='hidden md:block absolute -top-10 left-0 right-0 bottom-0 w-full h-[150%] z-10 bg-gradient-to-tr from-cyan-400 to-cyan-400/80' />
 
                 <div className='flex justify-center items-center'>
@@ -110,5 +113,10 @@ export function Index() {
                 />)}
             </div>
         </div>
+
+        <Dialog
+            title='Torrent info'
+            control={torrentInfoDialog}
+        />
     </div>
 }

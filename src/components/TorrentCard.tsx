@@ -9,8 +9,8 @@ function ActionButton({ icon, name, onClick, variant }: { variant: 'secondary' |
         'flex items-center space-x-1 rounded-full text-sm mr-2 px-3 py-2 transition-colors lg:mr-0 lg:flex-col lg:justify-center lg:space-y-1 lg:w-20 lg:rounded-xl lg:space-x-0',
 
         // variants
-        variant == 'secondary' && 'bg-black/5 hover:bg-black/10 dark:bg-black/10 dark:hover:bg-black/20',
-        variant == 'danger' && 'bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-500/20 dark:text-rose-200 dark:hover:bg-rose-500/30'
+        variant == 'secondary' && 'bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800/40 dark:hover:bg-neutral-600',
+        variant == 'danger' && 'bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-500/20 dark:text-rose-200 dark:hover:bg-rose-500/40'
     )} onClick={onClick}>
         <div className='[&>svg]:w-4 [&>svg]:h-4 [&>svg]:aspect-square'>
             {icon}
