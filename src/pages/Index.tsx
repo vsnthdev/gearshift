@@ -1,7 +1,7 @@
 import { filesize } from 'filesize'
+import { TorrentCard } from '../components'
 import { Transmission } from '@ctrl/transmission'
 import { useEffect, useMemo, useState } from 'react'
-import { TorrentCard, Dialog, useDialog } from '../components'
 import { DownloadCloud, File, HardDrive, UploadCloud } from 'lucide-react'
 
 const client = new Transmission({
@@ -14,7 +14,6 @@ export function Index() {
     // HOOKS
     const [torrents, setTorrents] = useState<any>([])
     const [freeSpace, setFreeSpace] = useState<any>()
-    const torrentInfoDialog = useDialog()
 
     // VALUES
     const totalDownloaded = useMemo(() => filesize(torrents.reduce((total: number, torrent: any) => total + torrent.totalDownloaded, 0)), [torrents])
@@ -113,10 +112,5 @@ export function Index() {
                 />)}
             </div>
         </div>
-
-        <Dialog
-            title='Torrent info'
-            control={torrentInfoDialog}
-        />
     </div>
 }

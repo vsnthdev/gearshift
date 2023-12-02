@@ -3,7 +3,7 @@ import { ArrowLeft, X } from 'lucide-react'
 import { useState } from 'react'
 
 export function useDialog() {
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
 
     const toggle = () => setIsOpen(exi => !exi)
     const open = () => setIsOpen(true)
@@ -12,7 +12,15 @@ export function useDialog() {
     return { isOpen, toggle, open, close }
 }
 
-export function Dialog({ control, hideClose, title }: { title: string, hideClose?: boolean, control: ReturnType<typeof useDialog> }) {
+export interface DialogProps {
+    title: string
+    hideClose?: boolean
+    control: ReturnType<typeof useDialog>
+    children?: React.ReactNode
+}
+
+export function Dialog(props: DialogProps) {
+    const { control, hideClose, title, children } = props
     const { isOpen, close } = control
 
     return <RDialog.Root open={isOpen}>
@@ -20,7 +28,7 @@ export function Dialog({ control, hideClose, title }: { title: string, hideClose
             {/* background overlay */}
             <RDialog.Overlay className='bg-black/50 backdrop-blur-md fixed inset-0 z-[990]' />
 
-            <RDialog.Content className='fixed z-[999] inset-0 p-6 md:top-[50%] md:left-[50%] md:max-h-[85vh] md:w-[90vw] md:max-w-[450px] md:translate-x-[-50%] md:translate-y-[-50%] md:rounded-3xl bg-white dark:bg-neutral-800'>
+            <RDialog.Content className='fixed flex flex-col z-[999] inset-0 p-6 md:top-[50%] md:left-[50%] md:max-h-[85vh] md:w-[90vw] md:max-w-[450px] md:translate-x-[-50%] md:translate-y-[-50%] md:rounded-3xl lg:max-w-[650px] xl:max-w-[950px] bg-white dark:bg-neutral-800'>
                 {/* dialog header */}
                 <div className='flex space-x-3 items-center text-slate-700 dark:text-white'>
                     {/* mobile back button */}
@@ -46,6 +54,11 @@ export function Dialog({ control, hideClose, title }: { title: string, hideClose
                             </RDialog.Close>
                         </div>}
                     </div>
+                </div>
+
+                {/* content */}
+                <div className='grow flex flex-col space-y-2 w-full h-full px-1 pt-5 pb-6 md:px-3 md:pt-3'>
+                    {children}
                 </div>
             </RDialog.Content>
         </RDialog.Portal>
