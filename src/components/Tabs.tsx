@@ -14,9 +14,9 @@ export function Tabs(props: TabsProps) {
     const { defaultTabId, tabs } = props
 
     return <RTabs.Root defaultValue={defaultTabId}>
-        <RTabs.List className='flex flex-col space-y-4'>
-            <div className='flex space-x-2 text-slate-400 dark:text-neutral-400'>
-                {tabs.map(tab => <RTabs.Trigger key={tab.id} value={tab.id} className='relative transition-colors flex items-center space-x-2 after:transition-colors data-[state=active]:text-slate-800 dark:data-[state=active]:text-white px-3 py-3 after:h-0.5 after:absolute after:bottom-0 after:rounded-full after:left-0 after:right-0 data-[state=active]:after:bg-slate-800 dark:data-[state=active]:after:bg-white after:bg-transparent'>
+        <RTabs.List className='flex flex-col'>
+            <div className='flex text-slate-400 dark:text-neutral-400'>
+                {tabs.map(tab => <RTabs.Trigger key={tab.id} value={tab.id} className='relative text-sm transition-colors flex items-center space-x-2 after:transition-colors data-[state=active]:bg-slate-100 data-[state=active]:text-slate-800 dark:data-[state=active]:text-white dark:data-[state=active]:bg-neutral-900 px-4 py-3 rounded-t-md'>
                     <div className='[&>svg]:w-4 [&>svg]:h-4'>
                         {tab.icon}
                     </div>
@@ -24,7 +24,7 @@ export function Tabs(props: TabsProps) {
                 </RTabs.Trigger>)}
             </div>
 
-            <div>
+            <div className='flex flex-col grow pt-4 pb-8 px-6 rounded-md -mt-1 bg-slate-100 dark:bg-neutral-900'>
                 {tabs.map(tab => <RTabs.Content value={tab.id}>{tab.content}</RTabs.Content>)}
             </div>
         </RTabs.List>
