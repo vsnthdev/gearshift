@@ -1,4 +1,5 @@
 import defaultTheme from 'tailwindcss/defaultTheme'
+import noScrollbar from 'tailwindcss-no-scrollbar'
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -13,6 +14,6 @@ export default {
         },
         extend: {},
     },
-    plugins: [],
+    plugins: [noScrollbar],
 }
 

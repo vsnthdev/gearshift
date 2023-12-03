@@ -22,7 +22,6 @@ export function Index() {
     useEffect(() => {
         client.freeSpace().then(data => setFreeSpace(data.arguments))
         client.getAllData().then(data => setTorrents(data.torrents))
-        client.freeSpace().then(data => console.log(data))
 
         setInterval(() => {
             client.getAllData().then(data => setTorrents(data.torrents))

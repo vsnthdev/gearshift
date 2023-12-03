@@ -29,7 +29,7 @@ export function Dialog(props: DialogProps) {
             {/* background overlay */}
             <RDialog.Overlay className='bg-black/50 backdrop-blur-md fixed inset-0 z-[990]' onClick={() => disableBackdropClose || close()} />
 
-            <RDialog.Content className='fixed z-[999] inset-0 p-6 md:inset-auto md:top-[50%] md:left-[50%] md:max-h-[85vh] md:w-[90vw] md:max-w-[450px] lg:max-w-[550px] md:translate-x-[-50%] md:translate-y-[-50%] md:rounded-3xl bg-white dark:bg-neutral-800'>
+            <RDialog.Content className='fixed z-[999] inset-0 p-6 md:inset-auto md:top-[50%] md:left-[50%] md:max-h-[85vh] md:w-[90vw] md:max-w-[450px] lg:max-w-[650px] md:translate-x-[-50%] md:translate-y-[-50%] md:rounded-3xl bg-white dark:bg-neutral-800'>
                 {/* dialog header */}
                 <div className='flex space-x-3 items-center text-slate-700 dark:text-white'>
                     {/* mobile back button */}

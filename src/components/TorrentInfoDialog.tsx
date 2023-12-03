@@ -2,7 +2,8 @@ import { Tabs } from './Tabs'
 import { DateTime } from 'luxon'
 import { filesize } from 'filesize'
 import { Dialog, DialogProps } from './Dialog'
-import { File, Info, Magnet } from 'lucide-react'
+import { File, Folder, Info, Magnet } from 'lucide-react'
+import { ParsedFile, useFilesystemParser } from '../hooks/useFilesystemParser'
 
 function TorrentInfo({ torrent }: { torrent: any }) {
     const availability = Number(torrent.totalDownloaded / torrent.totalSize * 100).toFixed(2)
@@ -49,6 +50,40 @@ function TorrentInfo({ torrent }: { torrent: any }) {
     </div>
 }
 
+function FileStrip({ file, name }: { file: ParsedFile['any'], name: string }) {
+    return <div className='flex flex-col w-max md:w-full'>
+        {/* render file info */}
+        <div className='relative flex items-center space-x-2 py-2 w-full'>
+            {/* file type icon */}
+            {file.type == 'dir' && <div className='p-2 rounded-full bg-slate-200 text-slate-500 dark:text-neutral-300 dark:bg-neutral-700'>
+                <Folder className='w-4 h-4' />
+            </div>}
+
+            {file.type == 'file' && <div className='p-2 rounded-full bg-slate-200 text-slate-500 dark:text-neutral-300 dark:bg-neutral-700'>
+                <File className='w-4 h-4' />
+            </div>}
+
+            <div className='flex flex-col'>
+                <p className='w-full text-sm'>{name}</p>
+                {file.type == 'file' && <span className='text-xs text-neutral-400 shrink-0'>{filesize(file.downloaded)} / {filesize(file.total)}</span>}
+            </div>
+        </div>
+
+        {/* render recursively */}
+        {file.type == 'dir' && file.sub && <div className='flex flex-col ml-8'>
+            {Object.keys(file.sub).map(subDir => <FileStrip key={subDir} name={subDir} file={(file as any).sub[subDir]} />)}
+        </div>}
+    </div>
+}
+
+function TorrentFiles({ torrent }: { torrent: any }) {
+    const files = useFilesystemParser(torrent.raw.files)
+
+    return <div className='flex overflow-x-scroll scrollbar-none pt-3'>
+        {Object.keys(files).map(dir => <FileStrip key={dir} name={dir} file={files[dir] as any} />)}
+    </div>
+}
+
 interface TorrentInfoDialogProps extends Omit<DialogProps, 'children' | 'hideClose'> {
     torrent: any
 }
@@ -73,7 +108,7 @@ export function TorrentInfoDialog(props: TorrentInfoDialogProps) {
                     id: 'files',
                     name: 'Files',
                     icon: <File />,
-                    content: <h3 className='text-3xl'>Files</h3>
+                    content: <TorrentFiles torrent={torrent} />
                 },
                 {
                     id: 'peers',

@@ -25,7 +25,7 @@ export function Tabs(props: TabsProps) {
             </div>
 
             <div className='flex flex-col grow pt-4 pb-8 px-6 rounded-md -mt-1 bg-slate-100 dark:bg-neutral-900'>
-                {tabs.map(tab => <RTabs.Content value={tab.id}>{tab.content}</RTabs.Content>)}
+                {tabs.map(tab => <RTabs.Content key={tab.id} value={tab.id} className='grow flex flex-col'>{tab.content}</RTabs.Content>)}
             </div>
         </RTabs.List>
     </RTabs.Root>
