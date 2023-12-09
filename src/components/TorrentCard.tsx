@@ -2,23 +2,27 @@ import { clsx } from 'clsx'
 import { DateTime } from 'luxon'
 import { filesize } from 'filesize'
 import { useDialog } from './Dialog'
+import { BoxButton, Button } from './'
 import { TorrentInfoDialog } from './TorrentInfoDialog'
 import { Bean, Clock, HardDriveDownload, HardDriveUpload, Info, Magnet, Pause, Play, Square, Trash2 } from 'lucide-react'
 
-function ActionButton({ icon, name, onClick, variant }: { variant: 'secondary' | 'danger', icon: React.ReactNode, name: string, onClick: () => any }) {
-    return <button className={clsx(
-        // base styles
-        'flex items-center space-x-1 rounded-full text-sm mr-2 px-3 py-2 transition-colors lg:mr-0 lg:flex-col lg:justify-center lg:space-y-1 lg:w-20 lg:rounded-xl lg:space-x-0',
-
-        // variants
-        variant == 'secondary' && 'bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800/40 dark:hover:bg-neutral-600',
-        variant == 'danger' && 'bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-500/20 dark:text-rose-200 dark:hover:bg-rose-500/40'
-    )} onClick={onClick}>
-        <div className='[&>svg]:w-4 [&>svg]:h-4 [&>svg]:aspect-square'>
-            {icon}
-        </div>
-        <span className='w-full'>{name}</span>
-    </button>
+function ActionButton({ icon, name, onClick, variant }: { variant: 'secondaryDark' | 'danger', icon: React.ReactNode, name: string, onClick: () => any }) {
+    return <>
+        <Button
+            icon={icon}
+            text={name}
+            variant={variant}
+            onClick={onClick}
+            className='lg:hidden'
+        />
+        <BoxButton
+            icon={icon}
+            text={name}
+            variant={variant}
+            onClick={onClick}
+            className='hidden lg:flex'
+        />
+    </>
 }
 
 export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent: any, pauseTorrent: (id: string) => any, resumeTorrent: (id: string) => any }) {
@@ -48,7 +52,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
         <div key={torrent.id} className='flex flex-col space-y-5 bg-white dark:bg-neutral-700 rounded-3xl p-5 sm:p-6 md:px-8 lg:space-y-0 lg:flex-row'>
             {/* <pre>{JSON.stringify(torrent, null, 4)}</pre> */}
             <div className='flex flex-col space-y-3 lg:grow'>
-                <h3 className='line-clamp-3 sm:text-lg'>{torrent.name}</h3>
+                <h3 className='line-clamp-1 sm:text-lg'>{torrent.name}</h3>
                 <div className='flex flex-col space-y-3'>
                     {/* metrics */}
                     <div className='flex space-x-3 justify-between'>
@@ -124,7 +128,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                 {/* torrent info */}
                 <ActionButton
                     name='Info'
-                    variant='secondary'
+                    variant='secondaryDark'
                     icon={<Info />}
                     onClick={infoDialog.open}
                 />
@@ -133,7 +137,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                 {torrent.state == 'paused' && <ActionButton
                     name='Start'
                     icon={<Play />}
-                    variant='secondary'
+                    variant='secondaryDark'
                     onClick={() => resumeTorrent(torrent.id)}
                 />}
 
@@ -141,7 +145,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                 {torrent.state == 'downloading' && <ActionButton
                     name='Pause'
                     icon={<Pause />}
-                    variant='secondary'
+                    variant='secondaryDark'
                     onClick={() => pauseTorrent(torrent.id)}
                 />}
 
@@ -149,7 +153,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                 {torrent.state == 'seeding' && <ActionButton
                     name='Stop'
                     icon={<Square />}
-                    variant='secondary'
+                    variant='secondaryDark'
                     onClick={() => pauseTorrent(torrent.id)}
                 />}
             </div>

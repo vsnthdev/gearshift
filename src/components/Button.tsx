@@ -5,6 +5,7 @@ const button = cva({
     base: 'flex items-center space-x-2 rounded-full mr-2 py-2 transition-all outline-none font-medium transform-gpu active:scale-95',
     variants: {
         variant: {
+            secondaryDark: 'text-slate-600 bg-slate-100 hover:bg-slate-200 dark:text-neutral-100 dark:bg-neutral-800/40 dark:hover:bg-neutral-600',
             secondary: 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:text-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600',
             primary: 'bg-slate-700 text-slate-100 hover:bg-slate-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-white',
             danger: 'bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-500/30 dark:text-rose-200 dark:hover:bg-rose-500/50',
