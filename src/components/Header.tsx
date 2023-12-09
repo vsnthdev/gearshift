@@ -1,5 +1,5 @@
-import { Github, Lightbulb, LightbulbOff, Menu, Search } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { Github, Lightbulb, LightbulbOff, Menu, Search } from 'lucide-react'
 
 export const Header = {
     Top() {
@@ -35,7 +35,7 @@ export const Header = {
 
             {/* nav section */}
             {/* <nav className='flex flex-col items-center'>
-                <NavLink to='/' className={({ isActive }) => clsx('flex flex-col items-center space-y-2', isActive ? 'opacity-100' : 'opacity-60')}>
+                <NavLink to='/' className={({ isActive }) => cx('flex flex-col items-center space-y-2', isActive ? 'opacity-100' : 'opacity-60')}>
                     <FileDown className='w-5 h-5' />
                     <span className='text-xs uppercase font-medium'>Home</span>
                 </NavLink>

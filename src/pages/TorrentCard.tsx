@@ -1,4 +1,4 @@
-import { clsx } from 'clsx'
+import { cx } from '../utils/cva.config'
 import { ActionButton } from './ActionButton'
 import { useDialog } from '../components/Dialog'
 import { Transmission } from '@ctrl/transmission'
@@ -74,7 +74,7 @@ export function TorrentCard({ torrent, client }: TorrentCardProps) {
 
                     {/* progress bar */}
                     <div className='h-1.5 bg-black/5 dark:bg-white/5 rounded-full'>
-                        <div className={clsx(
+                        <div className={cx(
                             // base styles
                             'h-full rounded-full transition-all',
 
