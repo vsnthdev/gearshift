@@ -58,7 +58,7 @@ export function Dialog(props: DialogProps) {
                 </div>
 
                 {/* content */}
-                <div className='grow flex flex-col space-y-2 w-full h-full px-1 pt-5 pb-6 md:px-3 md:pt-3'>
+                <div className='grow flex flex-col space-y-2 w-full h-full px-1 pt-5 md:px-3 md:py-3'>
                     {children}
                 </div>
             </RDialog.Content>

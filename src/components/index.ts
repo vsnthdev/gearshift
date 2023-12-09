@@ -1,4 +1,6 @@
 export * from './Tabs'
 export * from './Dialog'
 export * from './Header'
+export * from './Button'
 export * from './TorrentCard'
+export * from './NewMagnetDetectedDialog'
