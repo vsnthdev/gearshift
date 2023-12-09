@@ -57,9 +57,6 @@ export function Index() {
         }
     }, [torrents, magnetDetection])
 
-    const pauseTorrent = async (id: string) => await client.pauseTorrent(id)
-    const resumeTorrent = async (id: string) => await client.resumeTorrent(id)
-
     return <>
         <div className='flex flex-col space-y-8'>
             <div className='grid grid-cols-3 mt-4 gap-6 max-w-xl lg:max-w-3xl text-sm md:mt-0 lg:grid-cols-4'>
@@ -130,10 +127,9 @@ export function Index() {
                 </div>
                 <div className='flex flex-col space-y-4 md:space-y-6'>
                     {torrents.map((torrent: any) => <TorrentCard
+                        client={client}
                         key={torrent.id}
                         torrent={torrent}
-                        pauseTorrent={pauseTorrent}
-                        resumeTorrent={resumeTorrent}
                     />)}
                 </div>
             </div>

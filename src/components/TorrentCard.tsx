@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import { filesize } from 'filesize'
 import { useDialog } from './Dialog'
 import { BoxButton, Button } from './'
+import { Transmission } from '@ctrl/transmission'
 import { TorrentInfoDialog } from './TorrentInfoDialog'
 import { Bean, Clock, HardDriveDownload, HardDriveUpload, Info, Magnet, Pause, Play, Square, Trash2 } from 'lucide-react'
 
@@ -25,7 +26,12 @@ function ActionButton({ icon, name, onClick, variant }: { variant: 'secondaryDar
     </>
 }
 
-export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent: any, pauseTorrent: (id: string) => any, resumeTorrent: (id: string) => any }) {
+interface TorrentCardProps {
+    torrent: any,
+    client: Transmission,
+}
+
+export function TorrentCard({ torrent, client }: TorrentCardProps) {
     const infoDialog = useDialog()
 
     const formatEta = (seconds: number) => {
@@ -122,14 +128,14 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                     name='Delete'
                     variant='danger'
                     icon={<Trash2 />}
-                    onClick={() => alert('delete torrent!')}
+                    onClick={() => client.removeTorrent(torrent.id, false)}
                 />}
 
                 {/* torrent info */}
                 <ActionButton
                     name='Info'
-                    variant='secondaryDark'
                     icon={<Info />}
+                    variant='secondaryDark'
                     onClick={infoDialog.open}
                 />
 
@@ -138,7 +144,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                     name='Start'
                     icon={<Play />}
                     variant='secondaryDark'
-                    onClick={() => resumeTorrent(torrent.id)}
+                    onClick={() => client.resumeTorrent(torrent.id)}
                 />}
 
                 {/* paused downloading torrents */}
@@ -146,7 +152,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                     name='Pause'
                     icon={<Pause />}
                     variant='secondaryDark'
-                    onClick={() => pauseTorrent(torrent.id)}
+                    onClick={() => client.pauseTorrent(torrent.id)}
                 />}
 
                 {/* stop seeding torrents */}
@@ -154,7 +160,7 @@ export function TorrentCard({ torrent, pauseTorrent, resumeTorrent }: { torrent:
                     name='Stop'
                     icon={<Square />}
                     variant='secondaryDark'
-                    onClick={() => pauseTorrent(torrent.id)}
+                    onClick={() => client.pauseTorrent(torrent.id)}
                 />}
             </div>
         </div>
