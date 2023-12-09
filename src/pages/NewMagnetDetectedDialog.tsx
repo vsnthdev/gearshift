@@ -1,13 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog } from '../components/Dialog'
 import { Button } from '../components/Button'
 import { Transmission } from '@ctrl/transmission'
 import { BanIcon, PlusCircleIcon } from 'lucide-react'
-import { MagnetData, magnetEncode } from '@ctrl/magnet-link'
+import { MagnetData, magnetDecode, magnetEncode } from '@ctrl/magnet-link'
 
-export function useNewMagnetDetected() {
+export function useNewMagnetDetected(torrents: any[]) {
     const [detectedMagnet, setDetectedMagnet] = useState<MagnetData>()
     const [detectedMagnets, setDetectedMagnets] = useState<string[]>([])
+
+    // enable clipboard magnet link capturing
+    useEffect(() => {
+        const magnets: string[] = torrents.map((torr: any) => torr.raw.magnetLink)
+
+        const onFocus = () => {
+            navigator.clipboard.readText().then(copiedText => {
+                const decoded = magnets.map(magnet => magnetDecode(magnet).infoHash)
+                const magnet = magnetDecode(copiedText)
+
+                if (magnet.infoHash && !decoded.includes(magnet.infoHash) && !detectedMagnets.includes(copiedText)) {
+                    setDetectedMagnet(magnet)
+                    setDetectedMagnets(exi => [...exi, copiedText])
+                }
+            })
+        }
+
+        window.addEventListener('focus', onFocus)
+
+        return () => {
+            window.removeEventListener('focus', onFocus)
+        }
+    }, [torrents, detectedMagnets])
 
     return {
         detectedMagnet,
