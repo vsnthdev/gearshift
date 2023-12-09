@@ -1,9 +1,9 @@
 import { filesize } from 'filesize'
+import { magnetDecode } from '@ctrl/magnet-link'
 import { Transmission } from '@ctrl/transmission'
 import { useEffect, useMemo, useState } from 'react'
-import { MagnetData, magnetDecode } from '@ctrl/magnet-link'
-import { NewMagnetDetectedDialog, TorrentCard } from '../components'
 import { DownloadCloud, File, HardDrive, UploadCloud } from 'lucide-react'
+import { NewMagnetDetectedDialog, TorrentCard, useNewMagnetDetected } from '../components'
 
 const client = new Transmission({
     baseUrl: `http://192.168.0.100:9091`,
@@ -13,9 +13,9 @@ const client = new Transmission({
 
 export function Index() {
     // HOOKS
+    const magnetDetection = useNewMagnetDetected()
     const [torrents, setTorrents] = useState<any>([])
     const [freeSpace, setFreeSpace] = useState<any>()
-    const [detectedMagnet, setDetectedMagnet] = useState<MagnetData>()
 
     // VALUES
     const totalDownloaded = useMemo(() => filesize(torrents.reduce((total: number, torrent: any) => total + torrent.totalDownloaded, 0)), [torrents])
@@ -43,8 +43,9 @@ export function Index() {
                 const decoded = magnets.map(magnet => magnetDecode(magnet).infoHash)
                 const magnet = magnetDecode(copiedText)
 
-                if (magnet.infoHash && !decoded.includes(magnet.infoHash)) {
-                    setDetectedMagnet(magnet)
+                if (magnet.infoHash && !decoded.includes(magnet.infoHash) && !magnetDetection.detectedMagnets.includes(copiedText)) {
+                    magnetDetection.setDetectedMagnet(magnet)
+                    magnetDetection.setDetectedMagnets(exi => [...exi, copiedText])
                 }
             })
         }
@@ -54,7 +55,7 @@ export function Index() {
         return () => {
             window.removeEventListener('focus', onFocus)
         }
-    }, [torrents])
+    }, [torrents, magnetDetection])
 
     const pauseTorrent = async (id: string) => await client.pauseTorrent(id)
     const resumeTorrent = async (id: string) => await client.resumeTorrent(id)
@@ -138,6 +139,6 @@ export function Index() {
             </div>
         </div>
 
-        <NewMagnetDetectedDialog setDetectedMagnet={setDetectedMagnet} magnet={detectedMagnet} />
+        <NewMagnetDetectedDialog {...magnetDetection} />
     </>
 }
