@@ -139,6 +139,6 @@ export function Index() {
             </div>
         </div>
 
-        <NewMagnetDetectedDialog {...magnetDetection} />
+        <NewMagnetDetectedDialog {...magnetDetection} client={client} />
     </>
 }
