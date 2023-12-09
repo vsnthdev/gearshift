@@ -124,12 +124,12 @@ export function TorrentCard({ torrent, client }: TorrentCardProps) {
             {/* torrent controls */}
             <div className="flex flex-row-reverse justify-end lg:flex-row lg:space-x-3 lg:ml-6">
                 {/* delete the torrent */}
-                {torrent.state != 'downloading' && <ActionButton
+                <ActionButton
                     name='Delete'
                     variant='danger'
                     icon={<Trash2 />}
                     onClick={() => client.removeTorrent(torrent.id, false)}
-                />}
+                />
 
                 {/* torrent info */}
                 <ActionButton
