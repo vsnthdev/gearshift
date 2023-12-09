@@ -1,30 +1,10 @@
 import { clsx } from 'clsx'
-import { DateTime } from 'luxon'
-import { filesize } from 'filesize'
-import { useDialog } from './Dialog'
-import { BoxButton, Button } from './'
+import { useDialog } from '../components/Dialog'
 import { Transmission } from '@ctrl/transmission'
+import { useFormatEta } from '../hooks/useFormatEta'
+import { useFormatSize } from '../hooks/useFormatSize'
 import { TorrentInfoDialog } from './TorrentInfoDialog'
 import { Bean, Clock, HardDriveDownload, HardDriveUpload, Info, Magnet, Pause, Play, Square, Trash2 } from 'lucide-react'
-
-function ActionButton({ icon, name, onClick, variant }: { variant: 'secondaryDark' | 'danger', icon: React.ReactNode, name: string, onClick: () => any }) {
-    return <>
-        <Button
-            icon={icon}
-            text={name}
-            variant={variant}
-            onClick={onClick}
-            className='lg:hidden'
-        />
-        <BoxButton
-            icon={icon}
-            text={name}
-            variant={variant}
-            onClick={onClick}
-            className='hidden lg:flex'
-        />
-    </>
-}
 
 interface TorrentCardProps {
     torrent: any,
@@ -33,26 +13,11 @@ interface TorrentCardProps {
 
 export function TorrentCard({ torrent, client }: TorrentCardProps) {
     const infoDialog = useDialog()
-
-    const formatEta = (seconds: number) => {
-        const now = DateTime.now()
-        const eta = DateTime.now().plus({ seconds })
-
-        const diff = eta.diff(now)
-
-        if (diff.as('days') > 1) {
-            const days = Math.floor(diff.as('days'))
-            return `${days} ${days == 1 ? 'day' : 'days'}`
-        } else if (diff.as('hours') >= 1) {
-            return `${Math.floor(diff.as('hours'))} hr`
-        } else if (diff.as('minutes') >= 1) {
-            return `${Math.floor(diff.as('minutes'))} min`
-        } else {
-            return `${Math.floor(diff.as('seconds'))} sec`
-        }
-    }
-
-    const formatSize = (size: number, hideRate?: boolean) => hideRate ? filesize(size) : `${filesize(size)}/s`
+    const eta = useFormatEta(torrent.eta)
+    const uploadSpeed = useFormatSize(torrent.uploadSpeed)
+    const downloadSpeed = useFormatSize(torrent.downloadSpeed)
+    const totalSize = useFormatSize(torrent.totalSelected, true)
+    const downloaded = useFormatSize(torrent.totalDownloaded, true)
 
     return <>
         <div key={torrent.id} className='flex flex-col space-y-5 bg-white dark:bg-neutral-700 rounded-3xl p-5 sm:p-6 md:px-8 lg:space-y-0 lg:flex-row'>
@@ -67,19 +32,19 @@ export function TorrentCard({ torrent, client }: TorrentCardProps) {
                             {/* time remaining */}
                             {torrent.eta != -1 && <div className='flex space-x-1 items-center'>
                                 <Clock className='w-3 h-3 sm:w-4 sm:h-4' />
-                                <span>{formatEta(torrent.eta)}</span>
+                                <span>{eta}</span>
                             </div>}
 
                             {/* download speed */}
                             {torrent.state == 'downloading' && <div className='flex space-x-1 items-center'>
                                 <HardDriveDownload className='w-3 h-3 sm:w-4 sm:h-4' />
-                                <span>{formatSize(torrent.downloadSpeed)}</span>
+                                <span>{downloadSpeed}</span>
                             </div>}
 
                             {/* upload speed */}
                             {['seeding', 'downloading'].includes(torrent.state) && <div className='flex space-x-1 items-center'>
                                 <HardDriveUpload className='w-3 h-3 sm:w-4 sm:h-4' />
-                                <span>{formatSize(torrent.uploadSpeed)}</span>
+                                <span>{uploadSpeed}</span>
                             </div>}
 
                             {/* torrent peers */}
@@ -96,7 +61,7 @@ export function TorrentCard({ torrent, client }: TorrentCardProps) {
 
                             {/* show paused status */}
                             {torrent.state == 'paused' && <div className='flex opacity-70 space-x-1 items-center'>
-                                <span>Paused at {formatSize(torrent.totalDownloaded, true)} out of {formatSize(torrent.totalSelected, true)}</span>
+                                <span>Paused at {downloaded} out of {totalSize}</span>
                             </div>}
                         </div>
 

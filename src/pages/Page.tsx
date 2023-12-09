@@ -1,9 +1,10 @@
 import { filesize } from 'filesize'
+import { TorrentCard } from './TorrentCard'
 import { magnetDecode } from '@ctrl/magnet-link'
 import { Transmission } from '@ctrl/transmission'
 import { useEffect, useMemo, useState } from 'react'
 import { DownloadCloud, File, HardDrive, UploadCloud } from 'lucide-react'
-import { NewMagnetDetectedDialog, TorrentCard, useNewMagnetDetected } from '../components'
+import { NewMagnetDetectedDialog, useNewMagnetDetected } from './NewMagnetDetectedDialog'
 
 const client = new Transmission({
     baseUrl: `http://192.168.0.100:9091`,

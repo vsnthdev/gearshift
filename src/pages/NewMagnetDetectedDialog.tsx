@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Dialog } from './Dialog'
-import { Button } from './Button'
+import { Dialog } from '../components/Dialog'
+import { Button } from '../components/Button'
 import { Transmission } from '@ctrl/transmission'
 import { BanIcon, PlusCircleIcon } from 'lucide-react'
 import { MagnetData, magnetEncode } from '@ctrl/magnet-link'

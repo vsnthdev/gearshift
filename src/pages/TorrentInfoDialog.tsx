@@ -1,8 +1,8 @@
-import { Tabs } from './Tabs'
 import { DateTime } from 'luxon'
 import { filesize } from 'filesize'
-import { Dialog, DialogProps } from './Dialog'
+import { Tabs } from '../components/Tabs'
 import { File, Folder, Info, Magnet } from 'lucide-react'
+import { Dialog, DialogProps } from '../components/Dialog'
 import { ParsedFile, useFilesystemParser } from '../hooks/useFilesystemParser'
 
 function TorrentInfo({ torrent }: { torrent: any }) {
