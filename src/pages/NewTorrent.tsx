@@ -23,7 +23,7 @@ export function NewTorrent(props: NewTorrentProps) {
         }
     }, [client])
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+    const { getRootProps, isDragActive, getInputProps } = useDropzone({ onDrop })
 
     return <div {...getRootProps()} className='relative col-span-1 hidden cursor-pointer flex-col items-center justify-center space-y-2 rounded-2xl bg-white text-center dark:bg-neutral-900 md:aspect-square lg:flex'>
         <input {...getInputProps()} />
@@ -56,7 +56,7 @@ export function NewTorrent(props: NewTorrentProps) {
                     </svg>
                 </div>
 
-                <h4 className='text-xl font-medium'>{`Lets's`} go!</h4>
+                <h4 className='text-xl font-medium'>{'Lets\'s'} go!</h4>
             </div>
         </>}
     </div>

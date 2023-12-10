@@ -1,9 +1,9 @@
-import './index.css'
 import React from 'react'
-import { App } from './App'
-import { Index } from './pages/Page'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { App } from './App'
+import { Index } from './pages/Page'
+import './index.css'
 
 const router = createBrowserRouter([
     {

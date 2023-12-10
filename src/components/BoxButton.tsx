@@ -2,15 +2,15 @@ import { VariantProps } from 'cva'
 import { cva, cx } from '../utils/cva.config'
 
 const boxButton = cva({
+    defaultVariants: {
+        variant: 'secondaryDark'
+    },
     base: 'flex w-20 transform-gpu flex-col items-center justify-center space-y-1 rounded-xl text-sm font-medium outline-none transition-all active:scale-95',
     variants: {
         variant: {
-            secondaryDark: 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-neutral-800/40 dark:text-neutral-100 dark:hover:bg-neutral-600',
-            danger: 'bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-500/30 dark:text-rose-200 dark:hover:bg-rose-500/50'
+            danger: 'bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-500/30 dark:text-rose-200 dark:hover:bg-rose-500/50',
+            secondaryDark: 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-neutral-800/40 dark:text-neutral-100 dark:hover:bg-neutral-600'
         }
-    },
-    defaultVariants: {
-        variant: 'secondaryDark'
     }
 })
 
@@ -22,11 +22,11 @@ interface BoxButtonProps
 }
 
 export function BoxButton(props: BoxButtonProps) {
-    const { className, text, icon, variant, ...rest } = props
+    const { text, icon, variant, className, ...rest } = props
 
     return <button
         type='button'
-        className={boxButton({ className, variant })}
+        className={boxButton({ variant, className })}
         {...rest}
     >
         {icon && <div className={cx(

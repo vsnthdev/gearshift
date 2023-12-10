@@ -11,7 +11,7 @@ interface TabsProps {
 }
 
 export function Tabs(props: TabsProps) {
-    const { defaultTabId, tabs } = props
+    const { tabs, defaultTabId } = props
 
     return <RTabs.Root defaultValue={defaultTabId}>
         <RTabs.List className='flex flex-col'>

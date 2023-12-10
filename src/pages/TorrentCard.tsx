@@ -1,18 +1,18 @@
+import { Transmission } from '@ctrl/transmission'
+import { Bean, Clock, HardDriveDownload, HardDriveUpload, Info, Magnet, Pause, Play, Square, Trash2 } from 'lucide-react'
 import { cx } from '../utils/cva.config'
 import { ActionButton } from './ActionButton'
 import { useDialog } from '../components/Dialog'
-import { Transmission } from '@ctrl/transmission'
 import { useFormatEta } from '../hooks/useFormatEta'
 import { useFormatSize } from '../hooks/useFormatSize'
 import { TorrentInfoDialog } from './TorrentInfoDialog'
-import { Bean, Clock, HardDriveDownload, HardDriveUpload, Info, Magnet, Pause, Play, Square, Trash2 } from 'lucide-react'
 
 interface TorrentCardProps {
     torrent: any,
     client: Transmission,
 }
 
-export function TorrentCard({ torrent, client }: TorrentCardProps) {
+export function TorrentCard({ client, torrent }: TorrentCardProps) {
     const infoDialog = useDialog()
     const eta = useFormatEta(torrent.eta)
     const uploadSpeed = useFormatSize(torrent.uploadSpeed)

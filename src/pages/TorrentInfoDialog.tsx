@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { DateTime } from 'luxon'
 import { filesize } from 'filesize'
-import { Tabs } from '../components/Tabs'
 import { File, Folder, Info } from 'lucide-react'
+import { Tabs } from '../components/Tabs'
 import { Dialog, DialogProps } from '../components/Dialog'
 import { ParsedFile, useFilesystemParser } from '../hooks/useFilesystemParser'
 

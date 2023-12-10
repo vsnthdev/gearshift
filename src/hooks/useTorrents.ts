@@ -1,5 +1,5 @@
-import { Transmission } from "@ctrl/transmission"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
+import { Transmission } from '@ctrl/transmission'
 
 export function useTorrents(client: Transmission) {
     const [torrents, setTorrents] = useState<any>([])

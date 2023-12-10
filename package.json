@@ -30,6 +30,8 @@
         "buffer": "^6.0.3",
         "cva": "beta",
         "eslint": "^8.55.0",
+        "eslint-plugin-perfectionist": "^2.5.0",
+        "eslint-plugin-react": "^7.33.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-tailwindcss": "^3.13.0",
         "filesize": "^10.1.0",

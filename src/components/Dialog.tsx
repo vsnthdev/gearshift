@@ -1,6 +1,6 @@
-import * as RDialog from '@radix-ui/react-dialog'
-import { ArrowLeft, X } from 'lucide-react'
 import { useState } from 'react'
+import { ArrowLeft, X } from 'lucide-react'
+import * as RDialog from '@radix-ui/react-dialog'
 
 export function useDialog() {
     const [isOpen, setIsOpen] = useState(false)
@@ -9,7 +9,7 @@ export function useDialog() {
     const open = () => setIsOpen(true)
     const close = () => setIsOpen(false)
 
-    return { isOpen, toggle, open, close }
+    return { open, close, isOpen, toggle }
 }
 
 export interface DialogProps {
@@ -21,8 +21,8 @@ export interface DialogProps {
 }
 
 export function Dialog(props: DialogProps) {
-    const { control, hideClose, title, children, disableBackdropClose } = props
-    const { isOpen, close } = control
+    const { title, control, children, hideClose, disableBackdropClose } = props
+    const { close, isOpen } = control
 
     return <RDialog.Root open={isOpen}>
         <RDialog.Portal>

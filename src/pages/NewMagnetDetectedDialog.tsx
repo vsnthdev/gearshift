@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Dialog } from '../components/Dialog'
-import { Button } from '../components/Button'
 import { Transmission } from '@ctrl/transmission'
 import { BanIcon, PlusCircleIcon } from 'lucide-react'
 import { MagnetData, magnetDecode, magnetEncode } from '@ctrl/magnet-link'
+import { Dialog } from '../components/Dialog'
+import { Button } from '../components/Button'
 
 export function useNewMagnetDetected(torrents: any[]) {
     const [detectedMagnet, setDetectedMagnet] = useState<MagnetData>()
@@ -45,7 +45,7 @@ interface NewMagnetDetectedDialog extends ReturnType<typeof useNewMagnetDetected
 }
 
 export function NewMagnetDetectedDialog(props: NewMagnetDetectedDialog) {
-    const { detectedMagnet, setDetectedMagnet, client } = props
+    const { client, detectedMagnet, setDetectedMagnet } = props
 
     const dummy = () => true
     const close = () => setDetectedMagnet(undefined)

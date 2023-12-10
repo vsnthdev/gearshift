@@ -1,5 +1,5 @@
-import { DateTime } from "luxon";
-import { useMemo } from "react";
+import { useMemo } from 'react'
+import { DateTime } from 'luxon'
 
 export function useFormatEta(seconds: number) {
     return useMemo(() => {

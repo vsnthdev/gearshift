@@ -1,22 +1,22 @@
 import { useMemo } from 'react'
 import { filesize } from 'filesize'
-import { Infocard } from './InfoCard'
-import { TorrentCard } from './TorrentCard'
 import { Transmission } from '@ctrl/transmission'
-import { useTorrents } from '../hooks/useTorrents'
 import { DownloadCloudIcon, HardDriveIcon, UploadCloudIcon } from 'lucide-react'
-import { NewMagnetDetectedDialog, useNewMagnetDetected } from './NewMagnetDetectedDialog'
+import { Infocard } from './InfoCard'
 import { NewTorrent } from './NewTorrent'
+import { TorrentCard } from './TorrentCard'
+import { useTorrents } from '../hooks/useTorrents'
+import { NewMagnetDetectedDialog, useNewMagnetDetected } from './NewMagnetDetectedDialog'
 
 const client = new Transmission({
-    baseUrl: `http://192.168.0.100:9091`,
     username: 'vsnthdev',
-    password: 'vsnthdev'
+    password: 'vsnthdev',
+    baseUrl: 'http://192.168.0.100:9091'
 })
 
 export function Index() {
     // HOOKS
-    const { freeSpace, torrents } = useTorrents(client)
+    const { torrents, freeSpace } = useTorrents(client)
     const magnetDetection = useNewMagnetDetected(torrents)
 
     // VALUES

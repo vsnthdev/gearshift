@@ -25,13 +25,13 @@ export function useFilesystemParser(files: File[]): ParsedFile {
 
             if (previous) {
                 if (parsed[previous]) {
-                    parsed[previous] = { type: 'dir', sub: { ...parsed[previous].sub, ...{ [name]: { type: 'file', downloaded: file.bytesCompleted, total: file.length } } } }
+                    parsed[previous] = { type: 'dir', sub: { ...parsed[previous].sub, ...{ [name]: { type: 'file', total: file.length, downloaded: file.bytesCompleted } } } }
                 } else {
-                    parsed[previous] = { sub: { [name]: { type: 'file', downloaded: file.bytesCompleted, total: file.length } } }
+                    parsed[previous] = { sub: { [name]: { type: 'file', total: file.length, downloaded: file.bytesCompleted } } }
                 }
             } else {
                 if (!parsed[name]) {
-                    parsed[name] = { type: 'file', downloaded: file.bytesCompleted, total: file.length }
+                    parsed[name] = { type: 'file', total: file.length, downloaded: file.bytesCompleted }
                 }
             }
         }

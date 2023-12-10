@@ -2,16 +2,16 @@ import { VariantProps, cx } from 'cva'
 import { cva } from '../utils/cva.config'
 
 const infoCard = cva({
+    defaultVariants: {
+        color: 'violet'
+    },
     base: 'relative col-span-1 flex flex-col  items-center justify-center space-y-2 overflow-hidden rounded-2xl text-center md:aspect-square md:text-left',
     variants: {
         color: {
+            cyan: 'md:bg-cyan-300 md:text-cyan-900',
             violet: 'md:bg-violet-300 md:text-violet-900',
-            emerald: 'md:bg-emerald-300 md:text-emerald-900',
-            cyan: 'md:bg-cyan-300 md:text-cyan-900'
+            emerald: 'md:bg-emerald-300 md:text-emerald-900'
         }
-    },
-    defaultVariants: {
-        color: 'violet'
     }
 })
 
@@ -23,7 +23,7 @@ interface InfoCardProps extends VariantProps<typeof infoCard> {
 }
 
 export function Infocard(props: InfoCardProps) {
-    const { color, plain, icon, value, text } = props
+    const { icon, text, color, plain, value } = props
 
     return <div className={infoCard({ color })}>
         {/* background design elements */}
