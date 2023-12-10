@@ -1,13 +1,17 @@
+import { useMemo } from 'react'
 import { DateTime } from 'luxon'
 import { filesize } from 'filesize'
 import { Tabs } from '../components/Tabs'
-import { File, Folder, Info, Magnet } from 'lucide-react'
+import { File, Folder, Info } from 'lucide-react'
 import { Dialog, DialogProps } from '../components/Dialog'
 import { ParsedFile, useFilesystemParser } from '../hooks/useFilesystemParser'
 
 function TorrentInfo({ torrent }: { torrent: any }) {
-    const availability = Number(torrent.totalDownloaded / torrent.totalSize * 100).toFixed(2)
-    const lastActiveOn = DateTime.fromSeconds(torrent.raw.activityDate).toRelative()
+    const lastActiveOn = useMemo(() => DateTime.fromSeconds(torrent.raw.activityDate).toRelative(), [torrent.raw.activityDate])
+    const availability = useMemo(() => Number(torrent.totalDownloaded / torrent.totalSize * 100).toFixed(2), [torrent.totalDownloaded, torrent.totalSize])
+
+    const dateAdded = useMemo(() => DateTime.fromISO(torrent.dateAdded).toFormat('d LLL yyyy'), [torrent.dateAdded])
+    const dateCompleted = useMemo(() => DateTime.fromISO(torrent.dateCompleted).toFormat('d LLL yyyy'), [torrent.dateCompleted])
 
     return <div className='flex flex-col space-y-4'>
         {/* basic info */}
@@ -18,6 +22,18 @@ function TorrentInfo({ torrent }: { torrent: any }) {
                     <span className='opacity-50 uppercase font-semibold text-xs'>Name</span>
                     <span>{torrent.name}</span>
                 </div>
+                <div className='flex flex-col'>
+                    <span className='opacity-50 uppercase font-semibold text-xs'>Saved at</span>
+                    <span>{torrent.savePath}</span>
+                </div>
+                {!!torrent.raw.comment && <div className='flex flex-col'>
+                    <span className='opacity-50 uppercase font-semibold text-xs'>Comment</span>
+                    <span>{torrent.raw.comment}</span>
+                </div>}
+                {!!torrent.raw.creator && <div className='flex flex-col'>
+                    <span className='opacity-50 uppercase font-semibold text-xs'>Creator</span>
+                    <span>{torrent.raw.creator}</span>
+                </div>}
             </div>
         </div>
 
@@ -29,6 +45,14 @@ function TorrentInfo({ torrent }: { torrent: any }) {
                     <span className='opacity-50 uppercase font-semibold text-xs'>State</span>
                     <span>{torrent.state.slice(0, 1).toUpperCase()}{torrent.state.slice(1)}</span>
                 </div>
+                <div className='flex flex-col'>
+                    <span className='opacity-50 uppercase font-semibold text-xs'>Added at</span>
+                    <span>{dateAdded}</span>
+                </div>
+                {!!torrent.isCompleted && <div className='flex flex-col'>
+                    <span className='opacity-50 uppercase font-semibold text-xs'>Completed at</span>
+                    <span>{dateCompleted}</span>
+                </div>}
                 <div className='flex flex-col'>
                     <span className='opacity-50 uppercase font-semibold text-xs'>Downloaded</span>
                     <span>{filesize(torrent.totalDownloaded)}</span>
@@ -109,12 +133,6 @@ export function TorrentInfoDialog(props: TorrentInfoDialogProps) {
                     name: 'Files',
                     icon: <File />,
                     content: <TorrentFiles torrent={torrent} />
-                },
-                {
-                    id: 'peers',
-                    name: 'Peers',
-                    icon: <Magnet />,
-                    content: <h3 className='text-3xl'>Peers</h3>
                 }
             ]}
         />
