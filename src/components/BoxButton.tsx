@@ -2,10 +2,10 @@ import { VariantProps } from 'cva'
 import { cva, cx } from '../utils/cva.config'
 
 const boxButton = cva({
-    base: 'flex flex-col items-center text-sm justify-center space-y-1 w-20 rounded-xl transition-all outline-none font-medium transform-gpu active:scale-95',
+    base: 'flex w-20 transform-gpu flex-col items-center justify-center space-y-1 rounded-xl text-sm font-medium outline-none transition-all active:scale-95',
     variants: {
         variant: {
-            secondaryDark: 'text-slate-600 bg-slate-100 hover:bg-slate-200 dark:text-neutral-100 dark:bg-neutral-800/40 dark:hover:bg-neutral-600',
+            secondaryDark: 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-neutral-800/40 dark:text-neutral-100 dark:hover:bg-neutral-600',
             danger: 'bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-500/30 dark:text-rose-200 dark:hover:bg-rose-500/50'
         }
     },

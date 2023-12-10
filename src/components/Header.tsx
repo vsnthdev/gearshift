@@ -3,16 +3,16 @@ import { Github, Lightbulb, LightbulbOff, Menu, Search } from 'lucide-react'
 
 export const Header = {
     Top() {
-        return <header className='py-8 px-2 flex lg:px-12 xl:py-12'>
+        return <header className='flex px-2 py-8 lg:px-12 xl:py-12'>
             {/* mobile nav button */}
             <div className='mr-6 sm:hidden'>
-                <Menu className='w-6 h-6' />
+                <Menu className='h-6 w-6' />
             </div>
 
             {/* search */}
             <div className='flex grow lg:text-xl'>
-                <div className='grow flex items-center space-x-2 group lg:space-x-4'>
-                    <Search className='w-6 h-6 transition-opacity opacity-50 group-focus-within:opacity-100' />
+                <div className='group flex grow items-center space-x-2 lg:space-x-4'>
+                    <Search className='h-6 w-6 opacity-50 transition-opacity group-focus-within:opacity-100' />
                     <input type='text' placeholder='Search torrents' className='grow bg-transparent outline-none' />
                 </div>
             </div>
@@ -20,17 +20,17 @@ export const Header = {
             {/* helpful links */}
             <div className='flex items-center'>
                 <Link target='_blank' to='https://github.com/vsnthdev/transmission-control#readme' className='group'>
-                    <Github className='w-5 h-5 lg:w-6 lg:h-6 transition-opacity opacity-50 group-hover:opacity-100' />
+                    <Github className='h-5 w-5 opacity-50 transition-opacity group-hover:opacity-100 lg:h-6 lg:w-6' />
                 </Link>
             </div>
         </header>
     },
 
     Side() {
-        return <section className='hidden sm:flex flex-col justify-between px-4 py-6 md:px-6 xl:px-9 xl:py-10'>
+        return <section className='hidden flex-col justify-between px-4 py-6 sm:flex md:px-6 xl:px-9 xl:py-10'>
             {/* the logo */}
             <div className='flex flex-col items-center'>
-                <div className='w-10 aspect-square bg-slate-400 rounded-full' />
+                <div className='aspect-square w-10 rounded-full bg-slate-400' />
             </div>
 
             {/* nav section */}
@@ -43,9 +43,9 @@ export const Header = {
 
             {/* settings section */}
             <div className='flex flex-col items-center'>
-                <div className='flex flex-col items-center group'>
-                    <Lightbulb className='cursor-pointer transition-opacity w-6 h-6 hidden opacity-50 dark:inline group-hover:opacity-100' />
-                    <LightbulbOff className='cursor-pointer transition-opacity w-6 h-6 opacity-50 dark:hidden group-hover:opacity-100' />
+                <div className='group flex flex-col items-center'>
+                    <Lightbulb className='hidden h-6 w-6 cursor-pointer opacity-50 transition-opacity group-hover:opacity-100 dark:inline' />
+                    <LightbulbOff className='h-6 w-6 cursor-pointer opacity-50 transition-opacity group-hover:opacity-100 dark:hidden' />
                 </div>
             </div>
         </section>

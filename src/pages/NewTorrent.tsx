@@ -25,25 +25,25 @@ export function NewTorrent(props: NewTorrentProps) {
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
-    return <div {...getRootProps()} className='hidden cursor-pointer col-span-1 relative md:aspect-square bg-white rounded-2xl text-center lg:flex flex-col space-y-2 justify-center items-center dark:bg-neutral-900'>
+    return <div {...getRootProps()} className='relative col-span-1 hidden cursor-pointer flex-col items-center justify-center space-y-2 rounded-2xl bg-white text-center dark:bg-neutral-900 md:aspect-square lg:flex'>
         <input {...getInputProps()} />
 
         {!isDragActive && <>
-            <div className='flex justify-center items-center'>
-                <div className='p-3 flex bg-black/5 rounded-full dark:bg-white/10'>
-                    <FileIcon className='w-5 h-5 dark:text-neutral-300' />
+            <div className='flex items-center justify-center'>
+                <div className='flex rounded-full bg-black/5 p-3 dark:bg-white/10'>
+                    <FileIcon className='h-5 w-5 dark:text-neutral-300' />
                 </div>
             </div>
             <div className='px-4'>
                 <h4 className='font-semibold'>Drag & drop torrent files here or</h4>
             </div>
             <div className='flex'>
-                <button className='text-xs font-medium px-9 py-2 rounded-full transition-colors bg-slate-100 dark:bg-neutral-950'>Browse</button>
+                <button className='rounded-full bg-slate-100 px-9 py-2 text-xs font-medium transition-colors dark:bg-neutral-950'>Browse</button>
             </div>
         </>}
 
         {isDragActive && <>
-            <div className='flex flex-col justify-center items-center space-y-4'>
+            <div className='flex flex-col items-center justify-center space-y-4'>
                 <div className='flex'>
                     <svg width="42" height="42" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M29.2001 2.94972C28.253 2.00263 26.4999 1.9525 25.3817 2.52547C24.4693 2.83877 23.5081 3.19209 22.5278 3.58828L22.5383 3.59883C19.9627 4.69286 16.1108 6.63769 13.0279 9.49984C10.8637 11.5091 9.62366 13.0559 8.79313 14.4647L3.49489 16.4149C2.80991 16.6671 2.6171 17.5444 3.13322 18.0605C6.84572 21.773 10.5582 25.4855 14.2707 29.198C14.7868 29.7141 15.6641 29.5213 15.9163 28.8363L18.1197 22.8504C19.7284 21.8921 21.3425 20.6853 23.0279 18.9999C25.4183 16.6095 27.3936 12.4408 28.5413 9.64309L28.5496 9.65145C28.9506 8.66094 29.3079 7.68963 29.6243 6.76812C30.1973 5.64991 30.3642 4.11384 29.2001 2.94972Z" fill="#CA0B4A" />

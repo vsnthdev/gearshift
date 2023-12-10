@@ -16,22 +16,22 @@ function TorrentInfo({ torrent }: { torrent: any }) {
     return <div className='flex flex-col space-y-4'>
         {/* basic info */}
         <div className='flex flex-col space-y-2'>
-            <h5 className='uppercase tracking-wider font-semibold opacity-50'>Basic</h5>
-            <div className="text-sm flex flex-wrap gap-6">
+            <h5 className='font-semibold uppercase tracking-wider opacity-50'>Basic</h5>
+            <div className="flex flex-wrap gap-6 text-sm">
                 <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Name</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Name</span>
                     <span>{torrent.name}</span>
                 </div>
                 <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Saved at</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Saved at</span>
                     <span>{torrent.savePath}</span>
                 </div>
                 {!!torrent.raw.comment && <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Comment</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Comment</span>
                     <span>{torrent.raw.comment}</span>
                 </div>}
                 {!!torrent.raw.creator && <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Creator</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Creator</span>
                     <span>{torrent.raw.creator}</span>
                 </div>}
             </div>
@@ -39,34 +39,34 @@ function TorrentInfo({ torrent }: { torrent: any }) {
 
         {/* activity stats */}
         <div className='flex flex-col space-y-2'>
-            <h5 className='uppercase tracking-wider font-semibold opacity-50'>Activity</h5>
-            <div className='text-sm flex flex-wrap gap-6'>
+            <h5 className='font-semibold uppercase tracking-wider opacity-50'>Activity</h5>
+            <div className='flex flex-wrap gap-6 text-sm'>
                 <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>State</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>State</span>
                     <span>{torrent.state.slice(0, 1).toUpperCase()}{torrent.state.slice(1)}</span>
                 </div>
                 <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Added at</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Added at</span>
                     <span>{dateAdded}</span>
                 </div>
                 {!!torrent.isCompleted && <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Completed at</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Completed at</span>
                     <span>{dateCompleted}</span>
                 </div>}
                 <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Downloaded</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Downloaded</span>
                     <span>{filesize(torrent.totalDownloaded)}</span>
                 </div>
                 <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Uploaded</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Uploaded</span>
                     <span>{filesize(torrent.totalUploaded)}</span>
                 </div>
                 <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Availability</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Availability</span>
                     <span>{availability}%</span>
                 </div>
                 <div className='flex flex-col'>
-                    <span className='opacity-50 uppercase font-semibold text-xs'>Last activity</span>
+                    <span className='text-xs font-semibold uppercase opacity-50'>Last activity</span>
                     <span>{lastActiveOn}</span>
                 </div>
             </div>
@@ -75,26 +75,26 @@ function TorrentInfo({ torrent }: { torrent: any }) {
 }
 
 function FileStrip({ file, name }: { file: ParsedFile['any'], name: string }) {
-    return <div className='flex flex-col w-max md:w-full'>
+    return <div className='flex w-max flex-col md:w-full'>
         {/* render file info */}
-        <div className='relative flex items-center space-x-2 py-2 w-full'>
+        <div className='relative flex w-full items-center space-x-2 py-2'>
             {/* file type icon */}
-            {file.type == 'dir' && <div className='p-2 rounded-full bg-slate-200 text-slate-500 dark:text-neutral-300 dark:bg-neutral-700'>
-                <Folder className='w-4 h-4' />
+            {file.type == 'dir' && <div className='rounded-full bg-slate-200 p-2 text-slate-500 dark:bg-neutral-700 dark:text-neutral-300'>
+                <Folder className='h-4 w-4' />
             </div>}
 
-            {file.type == 'file' && <div className='p-2 rounded-full bg-slate-200 text-slate-500 dark:text-neutral-300 dark:bg-neutral-700'>
-                <File className='w-4 h-4' />
+            {file.type == 'file' && <div className='rounded-full bg-slate-200 p-2 text-slate-500 dark:bg-neutral-700 dark:text-neutral-300'>
+                <File className='h-4 w-4' />
             </div>}
 
             <div className='flex flex-col'>
                 <p className='w-full text-sm'>{name}</p>
-                {file.type == 'file' && <span className='text-xs text-neutral-400 shrink-0'>{filesize(file.downloaded)} / {filesize(file.total)}</span>}
+                {file.type == 'file' && <span className='shrink-0 text-xs text-neutral-400'>{filesize(file.downloaded)} / {filesize(file.total)}</span>}
             </div>
         </div>
 
         {/* render recursively */}
-        {file.type == 'dir' && file.sub && <div className='flex flex-col ml-8'>
+        {file.type == 'dir' && file.sub && <div className='ml-8 flex flex-col'>
             {Object.keys(file.sub).map(subDir => <FileStrip key={subDir} name={subDir} file={(file as any).sub[subDir]} />)}
         </div>}
     </div>
@@ -103,7 +103,7 @@ function FileStrip({ file, name }: { file: ParsedFile['any'], name: string }) {
 function TorrentFiles({ torrent }: { torrent: any }) {
     const files = useFilesystemParser(torrent.raw.files)
 
-    return <div className='flex overflow-x-scroll scrollbar-none pt-3'>
+    return <div className='flex overflow-x-scroll pt-3 scrollbar-none'>
         {Object.keys(files).map(dir => <FileStrip key={dir} name={dir} file={files[dir] as any} />)}
     </div>
 }
