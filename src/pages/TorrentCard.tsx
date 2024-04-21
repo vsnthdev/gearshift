@@ -21,7 +21,7 @@ export function TorrentCard({ client, torrent }: TorrentCardProps) {
     const downloaded = useFormatSize(torrent.totalDownloaded, true)
 
     return <>
-        <div key={torrent.id} className='flex flex-col space-y-5 rounded-3xl bg-white p-5 dark:bg-neutral-700 sm:p-6 md:px-8 lg:flex-row lg:space-y-0'>
+        <div key={torrent.id} className='flex flex-col space-y-5 rounded-3xl bg-white p-5 sm:p-6 md:px-8 lg:flex-row lg:space-y-0 dark:bg-neutral-700'>
             {/* <pre>{JSON.stringify(torrent, null, 4)}</pre> */}
             <div className='flex flex-col space-y-3 lg:grow'>
                 <h3 className='line-clamp-1 sm:text-lg'>{torrent.name}</h3>
@@ -29,34 +29,34 @@ export function TorrentCard({ client, torrent }: TorrentCardProps) {
                     {/* metrics */}
                     <div className='flex justify-between space-x-3'>
                         {/* left metrics */}
-                        <div className='flex flex-wrap items-center gap-2 text-xs text-neutral-500 dark:text-neutral-300 md:gap-4 lg:gap-5'>
+                        <div className='flex flex-wrap items-center gap-2 text-xs text-neutral-500 md:gap-4 lg:gap-5 dark:text-neutral-300'>
                             {/* time remaining */}
                             {torrent.eta != -1 && <div className='flex items-center space-x-1'>
-                                <Clock className='h-3 w-3 sm:h-4 sm:w-4' />
+                                <Clock className='size-3 sm:size-4' />
                                 <span>{eta}</span>
                             </div>}
 
                             {/* download speed */}
                             {torrent.state == 'downloading' && <div className='flex items-center space-x-1'>
-                                <HardDriveDownload className='h-3 w-3 sm:h-4 sm:w-4' />
+                                <HardDriveDownload className='size-3 sm:size-4' />
                                 <span>{downloadSpeed}</span>
                             </div>}
 
                             {/* upload speed */}
                             {['seeding', 'downloading'].includes(torrent.state) && <div className='flex items-center space-x-1'>
-                                <HardDriveUpload className='h-3 w-3 sm:h-4 sm:w-4' />
+                                <HardDriveUpload className='size-3 sm:size-4' />
                                 <span>{uploadSpeed}</span>
                             </div>}
 
                             {/* torrent peers */}
                             {['downloading', 'seeding'].includes(torrent.state) && <div className='hidden items-center space-x-1 md:flex'>
-                                <Magnet className='h-3 w-3 sm:h-4 sm:w-4' />
+                                <Magnet className='size-3 sm:size-4' />
                                 <span>{torrent.connectedPeers}/{torrent.totalPeers}</span>
                             </div>}
 
                             {/* torrent seeds */}
                             {torrent.state == 'downloading' && <div className='hidden items-center space-x-1 opacity-70 md:flex'>
-                                <Bean className='h-3 w-3 sm:h-4 sm:w-4' />
+                                <Bean className='size-3 sm:size-4' />
                                 <span>{torrent.connectedSeeds}/{torrent.totalSeeds}</span>
                             </div>}
 

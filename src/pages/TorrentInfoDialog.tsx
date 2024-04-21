@@ -80,11 +80,11 @@ function FileStrip({ file, name }: { file: ParsedFile['any'], name: string }) {
         <div className='relative flex w-full items-center space-x-2 py-2'>
             {/* file type icon */}
             {file.type == 'dir' && <div className='rounded-full bg-slate-200 p-2 text-slate-500 dark:bg-neutral-700 dark:text-neutral-300'>
-                <Folder className='h-4 w-4' />
+                <Folder className='size-4' />
             </div>}
 
             {file.type == 'file' && <div className='rounded-full bg-slate-200 p-2 text-slate-500 dark:bg-neutral-700 dark:text-neutral-300'>
-                <File className='h-4 w-4' />
+                <File className='size-4' />
             </div>}
 
             <div className='flex flex-col'>

@@ -8,7 +8,7 @@ export function App() {
         <div className='flex grow flex-col px-5 pb-8 sm:pl-0'>
             <Header.Top />
 
-            <main className='h-full rounded-3xl bg-slate-100 p-4 dark:bg-neutral-800 md:p-8 xl:p-14'>
+            <main className='h-full rounded-3xl bg-slate-100 p-4 md:p-8 xl:p-14 dark:bg-neutral-800'>
                 <Outlet />
             </main>
         </div>

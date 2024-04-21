@@ -11,7 +11,7 @@ import { NewMagnetDetectedDialog, useNewMagnetDetected } from './NewMagnetDetect
 const client = new Transmission({
     username: 'vsnthdev',
     password: 'vsnthdev',
-    baseUrl: 'http://192.168.0.100:9091'
+    baseUrl: 'http://192.168.0.101:9091'
 })
 
 export function Index() {

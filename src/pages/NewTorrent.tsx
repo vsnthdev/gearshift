@@ -25,13 +25,13 @@ export function NewTorrent(props: NewTorrentProps) {
 
     const { getRootProps, isDragActive, getInputProps } = useDropzone({ onDrop })
 
-    return <div {...getRootProps()} className='relative col-span-1 hidden cursor-pointer flex-col items-center justify-center space-y-2 rounded-2xl bg-white text-center dark:bg-neutral-900 md:aspect-square lg:flex'>
+    return <div {...getRootProps()} className='relative col-span-1 hidden cursor-pointer flex-col items-center justify-center space-y-2 rounded-2xl bg-white text-center md:aspect-square lg:flex dark:bg-neutral-900'>
         <input {...getInputProps()} />
 
         {!isDragActive && <>
             <div className='flex items-center justify-center'>
                 <div className='flex rounded-full bg-black/5 p-3 dark:bg-white/10'>
-                    <FileIcon className='h-5 w-5 dark:text-neutral-300' />
+                    <FileIcon className='size-5 dark:text-neutral-300' />
                 </div>
             </div>
             <div className='px-4'>

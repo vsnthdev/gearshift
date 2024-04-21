@@ -51,7 +51,7 @@ export function NewMagnetDetectedDialog(props: NewMagnetDetectedDialog) {
     const close = () => setDetectedMagnet(undefined)
 
     return <Dialog title='New magnet link' control={{ close, open: dummy, toggle: dummy, isOpen: Boolean(detectedMagnet) }}>
-        {detectedMagnet?.dn && <div className='flex flex-col space-y-8 text-slate-700 dark:text-neutral-300 md:space-y-4'>
+        {detectedMagnet?.dn && <div className='flex flex-col space-y-8 text-slate-700 md:space-y-4 dark:text-neutral-300'>
             <p className='break-all md:py-2'>Would you like to add <strong className='font-semibold text-black dark:text-white'>{detectedMagnet.dn}</strong> which is in your clipboard?</p>
 
             <div className='flex space-x-2'>

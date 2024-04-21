@@ -6,13 +6,13 @@ export const Header = {
         return <header className='flex px-2 py-8 lg:px-12 xl:py-12'>
             {/* mobile nav button */}
             <div className='mr-6 sm:hidden'>
-                <Menu className='h-6 w-6' />
+                <Menu className='size-6' />
             </div>
 
             {/* search */}
             <div className='flex grow lg:text-xl'>
                 <div className='group flex grow items-center space-x-2 lg:space-x-4'>
-                    <Search className='h-6 w-6 opacity-50 transition-opacity group-focus-within:opacity-100' />
+                    <Search className='size-6 opacity-50 transition-opacity group-focus-within:opacity-100' />
                     <input type='text' placeholder='Search torrents' className='grow bg-transparent outline-none' />
                 </div>
             </div>
@@ -20,7 +20,7 @@ export const Header = {
             {/* helpful links */}
             <div className='flex items-center'>
                 <Link target='_blank' to='https://github.com/vsnthdev/transmission-control#readme' className='group'>
-                    <Github className='h-5 w-5 opacity-50 transition-opacity group-hover:opacity-100 lg:h-6 lg:w-6' />
+                    <Github className='size-5 opacity-50 transition-opacity group-hover:opacity-100 lg:size-6' />
                 </Link>
             </div>
         </header>
@@ -44,8 +44,8 @@ export const Header = {
             {/* settings section */}
             <div className='flex flex-col items-center'>
                 <div className='group flex flex-col items-center'>
-                    <Lightbulb className='hidden h-6 w-6 cursor-pointer opacity-50 transition-opacity group-hover:opacity-100 dark:inline' />
-                    <LightbulbOff className='h-6 w-6 cursor-pointer opacity-50 transition-opacity group-hover:opacity-100 dark:hidden' />
+                    <Lightbulb className='hidden size-6 cursor-pointer opacity-50 transition-opacity group-hover:opacity-100 dark:inline' />
+                    <LightbulbOff className='size-6 cursor-pointer opacity-50 transition-opacity group-hover:opacity-100 dark:hidden' />
                 </div>
             </div>
         </section>

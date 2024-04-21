@@ -29,14 +29,14 @@ export function Dialog(props: DialogProps) {
             {/* background overlay */}
             <RDialog.Overlay className='fixed inset-0 z-[990] bg-black/50 backdrop-blur-md' onClick={() => disableBackdropClose || close()} />
 
-            <RDialog.Content className='fixed inset-0 z-[999] bg-white p-6 dark:bg-neutral-800 md:inset-auto md:left-[50%] md:top-[50%] md:max-h-[85vh] md:w-[90vw] md:max-w-[450px] md:translate-x-[-50%] md:translate-y-[-50%] md:rounded-3xl lg:max-w-[650px]'>
+            <RDialog.Content className='fixed inset-0 z-[999] bg-white p-6 md:inset-auto md:left-[50%] md:top-[50%] md:max-h-[85vh] md:w-[90vw] md:max-w-[450px] md:translate-x-[-50%] md:translate-y-[-50%] md:rounded-3xl lg:max-w-[650px] dark:bg-neutral-800'>
                 {/* dialog header */}
                 <div className='flex items-center space-x-3 text-slate-700 dark:text-white'>
                     {/* mobile back button */}
                     <div className='flex items-center md:hidden'>
                         <RDialog.Close asChild>
                             <button onClick={close} className='rounded-full bg-slate-100 p-2 text-slate-600 outline-none transition-colors hover:bg-slate-200 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-700'>
-                                <ArrowLeft className='h-6 w-6' />
+                                <ArrowLeft className='size-6' />
                             </button>
                         </RDialog.Close>
                     </div>
@@ -50,7 +50,7 @@ export function Dialog(props: DialogProps) {
                         {hideClose || <div className='hidden items-center md:flex'>
                             <RDialog.Close asChild>
                                 <button onClick={close} className='rounded-full bg-slate-100 p-2 text-slate-600 outline-none transition-colors hover:bg-slate-200 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-700'>
-                                    <X className='h-6 w-6' />
+                                    <X className='size-6' />
                                 </button>
                             </RDialog.Close>
                         </div>}
@@ -58,7 +58,7 @@ export function Dialog(props: DialogProps) {
                 </div>
 
                 {/* content */}
-                <div className='flex h-full w-full grow flex-col space-y-2 px-1 pt-5 md:p-3'>
+                <div className='flex size-full grow flex-col space-y-2 px-1 pt-5 md:p-3'>
                     {children}
                 </div>
             </RDialog.Content>

@@ -61,6 +61,6 @@ export function Button(props: ButtonProps) {
             // when only icon is given
             !text && icon && '[&>svg]:w-5 [&>svg]:h-5'
         )}>{icon}</span>}
-        {text && <span className='[&>svg]:h-4 [&>svg]:w-4'>{text}</span>}
+        {text && <span className='[&>svg]:size-4'>{text}</span>}
     </button>
 }

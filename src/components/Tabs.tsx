@@ -17,7 +17,7 @@ export function Tabs(props: TabsProps) {
         <RTabs.List className='flex flex-col'>
             <div className='flex text-slate-400 dark:text-neutral-400'>
                 {tabs.map(tab => <RTabs.Trigger key={tab.id} value={tab.id} className='relative flex items-center space-x-2 rounded-t-md px-4 py-3 text-sm transition-colors after:transition-colors data-[state=active]:bg-slate-100 data-[state=active]:text-slate-800 dark:data-[state=active]:bg-neutral-900 dark:data-[state=active]:text-white'>
-                    <div className='[&>svg]:h-4 [&>svg]:w-4'>
+                    <div className='[&>svg]:size-4'>
                         {tab.icon}
                     </div>
                     <span>{tab.name}</span>

@@ -48,7 +48,7 @@ export function Infocard(props: InfoCardProps) {
                 color == 'emerald' && 'md:bg-[#35C28E] md:dark:bg-[#35C28E]',
                 color == 'cyan' && 'md:bg-[#26C3DA] md:dark:bg-[#26C3DA]'
             )}>
-                <span className='[&>svg]:w-5 md:[&>svg]:h-6 md:[&>svg]:w-6 '>
+                <span className='[&>svg]:w-5 md:[&>svg]:size-6 '>
                     {icon}
                 </span>
             </div>
