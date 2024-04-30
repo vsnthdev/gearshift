@@ -12,7 +12,7 @@ export function NewTorrent(props: NewTorrentProps) {
     const { client } = props
 
     const onDrop = useCallback((files: File[]) => {
-        window.Buffer = Buffer
+        (window as any).Buffer = Buffer
 
         for (const file of files) {
             if (file.name.endsWith('.torrent')) {
