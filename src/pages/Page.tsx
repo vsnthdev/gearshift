@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
 import { filesize } from 'filesize'
 import { Transmission } from '@ctrl/transmission'
+import { useEffect, useMemo, useState } from 'react'
 import { DownloadCloudIcon, HardDriveIcon, UploadCloudIcon } from 'lucide-react'
 import { Infocard } from './InfoCard'
 import { NewTorrent } from './NewTorrent'
@@ -8,20 +8,25 @@ import { TorrentCard } from './TorrentCard'
 import { useTorrents } from '../hooks/useTorrents'
 import { NewMagnetDetectedDialog, useNewMagnetDetected } from './NewMagnetDetectedDialog'
 
-const client = new Transmission({
-    username: 'vsnthdev',
-    password: 'vsnthdev',
-    baseUrl: 'http://192.168.0.101:9091'
-})
-
 export function Index() {
     // HOOKS
+    const [client, setClient] = useState<Transmission>()
     const { torrents, freeSpace } = useTorrents(client)
     const magnetDetection = useNewMagnetDetected(torrents)
 
     // VALUES
     const totalDownloaded = useMemo(() => filesize(torrents.reduce((total: number, torrent: any) => total + torrent.totalDownloaded, 0)), [torrents])
     const totalUploaded = useMemo(() => filesize(torrents.reduce((total: number, torrent: any) => total + torrent.totalUploaded, 0)), [torrents])
+
+    useEffect(() => {
+        if (!client) {
+            setClient(new Transmission({
+                username: 'vsnthdev',
+                password: 'vsnthdev',
+                baseUrl: 'http://192.168.0.101:9091'
+            }))
+        }
+    }, [client])
 
     return <>
         <div className='flex flex-col space-y-8'>
@@ -48,7 +53,7 @@ export function Index() {
                     icon={<HardDriveIcon />}
                 />
 
-                <NewTorrent client={client} />
+                {client && <NewTorrent client={client} />}
             </div>
 
             {/* torrents list */}
@@ -57,7 +62,7 @@ export function Index() {
                     <h2 className='text-sm font-bold uppercase tracking-widest text-neutral-400'>Recent torrents</h2>
                 </div>
                 <div className='flex flex-col space-y-4 md:space-y-6'>
-                    {torrents.map((torrent: any) => <TorrentCard
+                    {client && torrents.map((torrent: any) => <TorrentCard
                         client={client}
                         key={torrent.id}
                         torrent={torrent}
@@ -66,6 +71,6 @@ export function Index() {
             </div>
         </div>
 
-        <NewMagnetDetectedDialog {...magnetDetection} client={client} />
+        {client && <NewMagnetDetectedDialog {...magnetDetection} client={client} />}
     </>
 }

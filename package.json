@@ -8,7 +8,8 @@
         "build": "tsc && vite build",
         "lint": "eslint --fix --ext ts,tsx .",
         "preview": "vite preview",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "start": "docker run --rm -it -p 8787:8787 -v ./dist:/public joseluisq/static-web-server -p 8787"
     },
     "dependencies": {
         "react": "^18.3.1",
