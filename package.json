@@ -5,10 +5,11 @@
     "type": "module",
     "scripts": {
         "dev": "vite --host",
-        "build": "tsc && vite build",
+        "build": "rimraf dist && tsc && vite build",
         "lint": "eslint --fix --ext ts,tsx .",
         "preview": "vite preview",
         "prepare": "husky",
+        "clean": "rimraf dist",
         "start": "docker run --rm -it -p 8787:8787 -v ./dist:/public joseluisq/static-web-server -p 8787"
     },
     "dependencies": {
@@ -19,7 +20,6 @@
     "devDependencies": {
         "@ctrl/magnet-link": "^4.0.2",
         "@ctrl/transmission": "^6.1.0",
-        "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
         "@radix-ui/react-dialog": "^1.1.1",
         "@radix-ui/react-tabs": "^1.1.0",
         "@types/luxon": "^3.4.2",
@@ -42,11 +42,13 @@
         "luxon": "^3.4.4",
         "postcss": "^8.4.40",
         "react-dropzone": "^14.2.3",
+        "rimraf": "^6.0.1",
         "tailwind-merge": "^2.4.0",
         "tailwindcss": "^3.4.7",
         "tailwindcss-no-scrollbar": "^1.0.1",
         "typescript": "^5.5.4",
         "unplugin-fonts": "^1.1.1",
-        "vite": "^5.3.5"
+        "vite": "^5.3.5",
+        "vite-plugin-node-polyfills": "^0.22.0"
     }
 }
