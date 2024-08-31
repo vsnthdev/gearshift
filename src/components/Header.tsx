@@ -19,7 +19,7 @@ export const Header = {
 
             {/* helpful links */}
             <div className='flex items-center'>
-                <Link target='_blank' to='https://github.com/vsnthdev/transmission-control#readme' className='group'>
+                <Link target='_blank' to='https://github.com/vsnthdev/gearshift#readme' className='group'>
                     <Github className='size-5 opacity-50 transition-opacity group-hover:opacity-100 lg:size-6' />
                 </Link>
             </div>
